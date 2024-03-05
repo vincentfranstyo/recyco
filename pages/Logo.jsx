@@ -1,14 +1,15 @@
 import React from 'react';
-import {View, Image, StyleSheet, TouchableOpacity} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import {View, Image, StyleSheet, TouchableOpacity, Dimensions} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import getDimensions from "../utils/utils";
 
 const logo = require('../assets/recycoText.png');
 
-const LogoPage = () => {
-    const navigation = useNavigation();
+const { width, height } = getDimensions();
 
+const LogoPage = ({navigation}) => {
     const handleViewClick = () => {
-        navigation.navigate('IntroPage');
+        navigation.navigate('IntroPage', {page: 'IntroPage'});
     };
 
     return (
@@ -26,10 +27,13 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#fff',
+        width: width,
+        height: height,
+        marginTop: height / 2
     },
     image: {
-        width: 100,
-        height: 100,
+        width: 150,
+        height: 150,
         resizeMode: 'contain',
     },
 });

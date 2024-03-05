@@ -9,9 +9,17 @@ const Stack = createStackNavigator();
 const App = () => {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="LogoPage" headerMode="none">
-                <Stack.Screen name="LogoPage" component={LogoPage}/>
-                <Stack.Screen name="IntroPage" component={IntroPage}/>
+            <Stack.Navigator initialRouteName="LogoPage" screenOptions={{ headerShown: false }}>
+                <Stack.Screen
+                    name="LogoPage"
+                    component={LogoPage}
+                    options={{title: "Logo"}}
+                />
+                <Stack.Screen
+                    name="IntroPage"
+                    component={IntroPage}
+                    options={{title: "Intro"}}
+                />
             </Stack.Navigator>
         </NavigationContainer>
     );
