@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {View, Image, StyleSheet} from 'react-native';
+import {View, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import getDimensions from "../utils/utils";
 
 const logo = require('../assets/logoText.png');
@@ -15,14 +15,23 @@ const LogoPage = ({navigation}) => {
         return () => clearTimeout(timeoutId);
     }, [navigation]);
 
+    const handleViewClick = () => {
+        navigation.navigate('IntroPage', {page: 'IntroPage'});
+    };
+
     return (
-        <View style={styles.container}>
-            <Image source={logo} style={styles.image}/>
-        </View>
+        <TouchableOpacity onPress={handleViewClick} style={styles.touchableContainer}>
+            <View style={styles.container}>
+                <Image source={logo} style={styles.image}/>
+            </View>
+        </TouchableOpacity>
     );
 };
 
 const styles = StyleSheet.create({
+    touchableContainer: {
+        flex: 1,
+    },
     container: {
         flex: 1,
         justifyContent: 'center',
