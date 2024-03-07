@@ -1,23 +1,24 @@
-import React from 'react';
-import {View, Image, StyleSheet, TouchableOpacity, Dimensions} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
+import React, {useEffect} from 'react';
+import {View, Image, StyleSheet} from 'react-native';
 import getDimensions from "../utils/utils";
 
-const logo = require('../assets/recycoText.png');
+const logo = require('../assets/logoText.png');
 
-const { width, height } = getDimensions();
+const {width, height} = getDimensions();
 
 const LogoPage = ({navigation}) => {
-    const handleViewClick = () => {
-        navigation.navigate('IntroPage', {page: 'IntroPage'});
-    };
+    useEffect(() => {
+        const timeoutId = setTimeout(() => {
+            navigation.navigate('IntroPage', {page: 'IntroPage'});
+        }, 2000);
+
+        return () => clearTimeout(timeoutId);
+    }, [navigation]);
 
     return (
-        <TouchableOpacity onPress={handleViewClick}>
-            <View style={styles.container}>
-                <Image source={logo} style={styles.image}/>
-            </View>
-        </TouchableOpacity>
+        <View style={styles.container}>
+            <Image source={logo} style={styles.image}/>
+        </View>
     );
 };
 
@@ -29,7 +30,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         width: width,
         height: height,
-        marginTop: height / 2
     },
     image: {
         width: 150,
