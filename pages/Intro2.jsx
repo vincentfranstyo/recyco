@@ -1,14 +1,13 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
-import getDimensions from "../utils/utils";
+import {View, Text, TouchableOpacity, Image} from 'react-native';
 import {useFonts} from 'expo-font';
+import {create} from 'tailwindcss-react-native';
 
+const {tailwind} = create(require('../tailwind.config'));
 
-const {width, height} = getDimensions()
-
-const landing_2_bg = require('../assets/images/landing_2_bg.png')
+const landing_2_bg = require('../assets/images/landing_2_bg.png');
 const landing_2 = require('../assets/images/landing_2.png');
-const arrow_forward = require('../assets/images/arrow_forward.png')
+const arrow_forward = require('../assets/images/arrow_forward.png');
 
 const Intro2Page = ({navigation, route}) => {
     const [fontsLoaded] = useFonts({
@@ -16,8 +15,9 @@ const Intro2Page = ({navigation, route}) => {
         'Poppins-Bold': require('../assets/fonts/Poppins/Poppins-Bold.ttf'),
         'Poppins': require('../assets/fonts/Poppins/Poppins-Regular.ttf'),
     });
+
     const handleViewClick = () => {
-        // navigation.navigate('Intro2Page', {page: 'Intro2Page'});
+        // navigation.navigate('Intro2Page', { page: 'Intro2Page' });
     };
 
     if (!fontsLoaded) {
@@ -25,89 +25,28 @@ const Intro2Page = ({navigation, route}) => {
     }
 
     return (
-        <TouchableOpacity onPress={handleViewClick} style={styles.touchableContainer}>
-            <View style={styles.container}>
-                <View style={styles.imgContainer}>
-                    <Image source={landing_2_bg} style={styles.landingBg}/>
-                    <Image source={landing_2} style={styles.landingImage}/>
+        <TouchableOpacity onPress={handleViewClick} style={tailwind('flex-1')}>
+            <View style={tailwind('flex-1 justify-center items-center bg-white')}>
+                <View style={tailwind('flex-1 justify-center items-center')}>
+                    <Image source={landing_2_bg} style={tailwind('absolute w-100 h-100')}/>
+                    <Image source={landing_2} style={tailwind('absolute w-69 h-69 top-49')}/>
                 </View>
-                <View style={styles.textContainer}>
-                    <Text style={styles.title}>Yuk salur sampahmu!</Text>
-                    <Text style={styles.sub}>Dengan menyalurkan sampahmu ke Recyco, sampahmu akan dikelola dan kamu hanya perlu membayar dengan harga yang terjangkau! </Text>
+                <View style={tailwind('flex-1 justify-start items-center px-5')}>
+                    <Text style={[tailwind('text-center mt-5 text-lg'), {fontFamily: 'Poppins-Black'}]}>
+                        Yuk salur sampahmu!
+                    </Text>
+                    <Text style={[tailwind('text-center mt-7 text-sm'), {fontFamily: 'Poppins'}]}>
+                        Dengan menyalurkan sampahmu ke Recyco, sampahmu akan dikelola dan kamu hanya perlu membayar
+                        dengan harga yang terjangkau!
+                    </Text>
                 </View>
-                <View style={styles.navButton}>
-                    <Image source={arrow_forward} style={styles.arrow}/>
+                <View
+                    style={tailwind('absolute bottom-30 bg-green-700 justify-center items-center rounded-full w-10 h-10')}>
+                    <Image source={arrow_forward} style={tailwind('w-7 h-7')}/>
                 </View>
             </View>
         </TouchableOpacity>
-    )
+    );
 };
-
-const styles = StyleSheet.create({
-    touchableContainer: {
-        flex: 1,
-    },
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#fff',
-        width: width,
-        height: height,
-    },
-    textContainer: {
-        flex: 1,
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        paddingLeft: 20,
-        paddingRight: 20,
-    },
-    title: {
-        fontFamily: 'Poppins-Black',
-        textAlign: 'center',
-        fontWeight: '100',
-        fontSize: 18,
-        marginTop: 20,
-    },
-    sub: {
-        fontFamily: 'Poppins',
-        textAlign: 'center',
-        fontSize: 12,
-        marginTop: 30,
-    },
-    imgContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    landingImage: {
-        position: 'absolute',
-        width: 276,
-        height: 276,
-        resizeMode: 'contain',
-        top: 198,
-    },
-    landingBg: {
-        position: 'absolute',
-        width: 400,
-        height: 400,
-        resizeMode: 'cover',
-    },
-    navButton: {
-        position: 'absolute',
-        bottom: 120,
-        backgroundColor: '#017C37',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 25,
-        width: 40,
-        height: 40,
-    },
-    arrow: {
-        width: 30,
-        height: 30,
-        resizeMode: 'contain',
-    },
-});
 
 export default Intro2Page;

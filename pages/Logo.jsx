@@ -1,50 +1,32 @@
-import React, {useEffect} from 'react';
-import {View, Image, StyleSheet, TouchableOpacity} from 'react-native';
-import getDimensions from "../utils/utils";
+import React, { useEffect } from 'react';
+import { View, Image, TouchableOpacity } from 'react-native';
+import { create } from 'tailwindcss-react-native';
+
+const { tailwind, getColor } = create(require('../tailwind.config'));
 
 const logo = require('../assets/logoText.png');
 
-const {width, height} = getDimensions();
-
-const LogoPage = ({navigation}) => {
+const LogoPage = ({ navigation }) => {
     useEffect(() => {
         const timeoutId = setTimeout(() => {
-            navigation.navigate('IntroPage', {page: 'IntroPage'});
+            navigation.navigate('IntroPage', { page: 'IntroPage' });
         }, 2000);
 
         return () => clearTimeout(timeoutId);
     }, [navigation]);
 
     const handleViewClick = () => {
-        navigation.navigate('IntroPage', {page: 'IntroPage'});
+        navigation.navigate('IntroPage', { page: 'IntroPage' });
     };
 
     return (
-        <TouchableOpacity onPress={handleViewClick} style={styles.touchableContainer}>
-            <View style={styles.container}>
-                <Image source={logo} style={styles.image}/>
+        <TouchableOpacity onPress={handleViewClick} style={tailwind('flex-1')}>
+            <View style={tailwind('flex-1 justify-center items-center bg-white')}>
+                <Image source={logo} style={tailwind('w-38 h-38')} />
             </View>
         </TouchableOpacity>
     );
 };
 
-const styles = StyleSheet.create({
-    touchableContainer: {
-        flex: 1,
-    },
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#fff',
-        width: width,
-        height: height,
-    },
-    image: {
-        width: 150,
-        height: 150,
-        resizeMode: 'contain',
-    },
-});
-
 export default LogoPage;
+
