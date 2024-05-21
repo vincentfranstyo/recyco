@@ -14,7 +14,7 @@ const Intro2Page = ({navigation}) => {
     });
 
     const handleViewClick = () => {
-        // Add navigation or other actions here
+        navigation.navigate('LoginPage');
     };
 
     if (!fontsLoaded) {

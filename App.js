@@ -4,6 +4,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import LogoPage from './pages/Logo.jsx';
 import IntroPage from './pages/Intro.jsx';
 import Intro2Page from './pages/Intro2.jsx';
+import LoginPage from './pages/Login.jsx';
 
 const Stack = createStackNavigator();
 
@@ -25,6 +26,11 @@ const App = () => {
                     name="Intro2Page"
                     component={Intro2Page}
                     options={{title: "Intro 2"}}
+                />
+                <Stack.Screen
+                    name={"LoginPage"}
+                    component={LoginPage}
+                    options={{title: "Login"}}
                 />
             </Stack.Navigator>
         </NavigationContainer>
