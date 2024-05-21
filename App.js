@@ -5,6 +5,7 @@ import LogoPage from './pages/Logo.jsx';
 import IntroPage from './pages/Intro.jsx';
 import Intro2Page from './pages/Intro2.jsx';
 import LoginPage from './pages/Login.jsx';
+import RegistrationPage from './pages/Register.jsx';
 
 const Stack = createStackNavigator();
 
@@ -31,6 +32,11 @@ const App = () => {
                     name={"LoginPage"}
                     component={LoginPage}
                     options={{title: "Login"}}
+                />
+                <Stack.Screen
+                    name={"RegistrationPage"}
+                    component={RegistrationPage}
+                    options={{title: "Registration"}}
                 />
             </Stack.Navigator>
         </NavigationContainer>

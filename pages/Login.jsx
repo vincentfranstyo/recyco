@@ -14,6 +14,10 @@ const LoginPage = ({navigation}) => {
         // Handle login logic
     };
 
+    const handleForgetPassword = () => {
+        navigation.navigate('ForgetPasswordPage')
+    }
+
     const handleRegistration = () => {
         navigation.navigate('RegistrationPage');
     }
@@ -72,6 +76,7 @@ const LoginPage = ({navigation}) => {
                     </View>
                     <TouchableOpacity
                         class={"ForgetPassword"}
+                        onPress={handleForgetPassword}
                         className={"w-full flex-row justify-end"}
                     >
                         <Text
