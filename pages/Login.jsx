@@ -11,7 +11,7 @@ const LoginPage = ({navigation}) => {
     const [password, setPassword] = useState('');
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const handleLogin = () => {
-        // Handle login logic
+        navigation.navigate('HomePage')
     };
 
     const handleForgetPassword = () => {

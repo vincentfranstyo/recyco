@@ -6,6 +6,7 @@ import IntroPage from './pages/Intro.jsx';
 import Intro2Page from './pages/Intro2.jsx';
 import LoginPage from './pages/Login.jsx';
 import RegistrationPage from './pages/Register.jsx';
+import ForgetPassword from './pages/ForgetPassword.jsx';
 
 const Stack = createStackNavigator();
 
@@ -37,6 +38,11 @@ const App = () => {
                     name={"RegistrationPage"}
                     component={RegistrationPage}
                     options={{title: "Registration"}}
+                />
+                <Stack.Screen
+                    name={"ForgetPasswordPage"}
+                    component={ForgetPassword}
+                    options={{title: "Forget Password"}}
                 />
             </Stack.Navigator>
         </NavigationContainer>

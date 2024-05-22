@@ -35,7 +35,7 @@ const RegistPage = ({navigation}) => {
                 className={'flex-1 flex-col justify-center items-center bg-white max-h-[30%]'}
             >
                 <View
-                    className={'flex-row justify-start items-start w-full h-auto bg-white max-h-[20%] ml-5 mt-[10%]'}
+                    className={'flex-row justify-start items-start w-full h-auto bg-white max-h-[20%] ml-5 mt-[15%]'}
                 >
                     <TouchableOpacity
                         onPress={handleBack}
