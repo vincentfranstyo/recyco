@@ -8,7 +8,7 @@ const profile_logo_chosen = require('../assets/images/profile_img_chosen.png');
 const home_logo = require('../assets/images/home_img.png');
 const history_logo_chosen = require('../assets/images/history_img_chosen.png');
 
-const Navbar = ({navigation, isHome, isProfile, isHistory}) => {
+const Navbar = ({navigation, isHome = false, isProfile = false, isHistory = false}) => {
     const handleNavigation = (page) => {
         navigation.navigate(page);
     };
@@ -16,25 +16,28 @@ const Navbar = ({navigation, isHome, isProfile, isHistory}) => {
     return (
         <>
             <View
-                className={'flex-row justify-between items-center bg-white px-6 py-3'}
+                className={'flex-row justify-between items-center bg-white px-6 py-3 max-h-full fixed bottom-0'}
                 style={style.elevated}
             >
-                <TouchableOpacity onPress={() => handleNavigation('HomePage')}>
-                    <Image
-                        source={isHome ? home_logo_chosen : home_logo}
-                        style={styles.logo}
-                    />
-                </TouchableOpacity>
                 <TouchableOpacity onPress={() => handleNavigation('HistoryPage')}>
                     <Image
                         source={isHistory ? history_logo_chosen : history_logo}
-                        style={styles.logo}
+                        // style={style.logo}
+                        className={`w-10 h-10`}
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => handleNavigation('HomePage')}>
+                    <Image
+                        source={isHome ? home_logo_chosen : home_logo}
+                        // style={style.logo}
+                        className={`w-10 h-10`}
                     />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => handleNavigation('ProfilePage')}>
                     <Image
                         source={isProfile ? profile_logo_chosen : profile_logo}
-                        style={styles.logo}
+                        // style={style.logo}
+                        className={`w-10 h-10`}
                     />
                 </TouchableOpacity>
             </View>
@@ -51,8 +54,8 @@ const style = StyleSheet.create({
         elevation: 10,
     },
     logo: {
-        width: 20,
-        height: 20
+        width: 25,
+        height: 25
     }
 })
 

@@ -12,10 +12,6 @@ const infos = [
     {
         img: infoimg_1,
         sub: 'Mekanisme Green Building Certificate, Yuk Cari Tahu'
-    },
-    {
-        img: infoimg_1,
-        sub: 'Mekanisme Green Building Certificate, Yuk Cari Tahu'
     }
 ]
 
@@ -52,7 +48,7 @@ const style = StyleSheet.create({
     scrollable: {
         flex: 1,
         flexDirection: 'column',
-        justifyContent: 'space-between',
+        justifyContent: 'flex-start',
         alignItems: 'center',
         backgroundColor: 'transparent',
     }

@@ -1,7 +1,7 @@
 import React from 'react';
 import {View} from "react-native";
 
-const InfoDetail = () => {
+const HistoryDetail = () => {
     return (
         <>
             <View
@@ -13,4 +13,4 @@ const InfoDetail = () => {
     )
 }
 
-export default InfoDetail
+export default HistoryDetail

@@ -3,6 +3,7 @@ import HomeHero from '../components/HomeHero'
 import {Text, TouchableOpacity, View} from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient'
 import Info from "../components/Info";
+import Navbar from "../components/Navbar";
 
 const HomePage = ({navigation}) => {
     const handleOrderButton = () => {
@@ -11,7 +12,7 @@ const HomePage = ({navigation}) => {
     return (
         <>
             <View
-                className={'flex-col justify-center items-start max-w-[90%] mx-auto py-4 h-screen bg-transparent'}
+                className={'flex-col justify-center items-start max-w-[90%] mx-auto mt-0 pt-4 h-screen max-h-[92%] bg-transparent'}
             >
                 <HomeHero
                     username={'asep'}
@@ -44,8 +45,11 @@ const HomePage = ({navigation}) => {
 
                 <Info navigation={navigation}/>
             </View>
+            <Navbar
+                navigation={navigation}
+                isHome={true}
+            />
         </>
-
     )
 }
 

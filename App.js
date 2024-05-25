@@ -11,6 +11,9 @@ import ForgetPassword from './pages/ForgetPassword.jsx';
 import HomePage from './pages/Home.jsx';
 import OrderPage from './pages/Order.jsx';
 import InfoDetailPage from './pages/InfoDetail.jsx';
+import HistoryDetailPage from "./pages/HistoryDetail";
+import HistoryPage from "./pages/History";
+import ProfilePage from "./pages/Profile";
 
 const Stack = createStackNavigator();
 
@@ -62,6 +65,21 @@ const App = () => {
                     name={'InfoDetailPage'}
                     component={InfoDetailPage}
                     options={{title: 'Info Detail'}}
+                />
+                <Stack.Screen
+                    name={'HistoryPage'}
+                    component={HistoryPage}
+                    options={{title: 'History'}}
+                />
+                <Stack.Screen
+                    name={'ProfilePage'}
+                    component={ProfilePage}
+                    options={{title: 'Profile'}}
+                />
+                <Stack.Screen
+                    name={'HistoryDetailPage'}
+                    component={HistoryDetailPage}
+                    options={{title: 'History Detail'}}
                 />
             </Stack.Navigator>
         </NavigationContainer>

@@ -64,7 +64,7 @@ const HeroCard = ({title, img, sub, sub2}) => {
                 </View>
             ) : (
                 <View
-                    className={'flex flex-col justify-between items-center w-full my-auto'}
+                    className={'flex flex-col justify-between items-start w-full my-auto'}
                 >
 
                     <Image
@@ -73,7 +73,8 @@ const HeroCard = ({title, img, sub, sub2}) => {
                     />
                     <View style={style.horizontalLine} />
                     <Text
-                        className={'text-sm'}
+                        className={'text-xs text-[#2C6262] mt-2'}
+                        style={{fontFamily: 'Poppins-Bold'}}
                     >
                         {sub}
                     </Text>
