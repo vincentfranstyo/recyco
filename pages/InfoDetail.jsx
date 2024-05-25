@@ -13,4 +13,8 @@ const InfoDetail = ({navigation}) => {
     )
 }
 
+const style = StyleSheet.create({
+
+})
+
 export default InfoDetail

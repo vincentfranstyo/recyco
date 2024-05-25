@@ -1,49 +1,40 @@
 import React from 'react';
-import {Image, TouchableOpacity, View, StyleSheet} from 'react-native';
+import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 
 const profile_logo = require('../assets/images/profile_img.png');
-const home_logo = require('../assets/images/home_img.png');
+const home_logo_chosen = require('../assets/images/home_img_chosen.png');
 const history_logo = require('../assets/images/history_img.png');
+const profile_logo_chosen = require('../assets/images/profile_img_chosen.png');
+const home_logo = require('../assets/images/home_img.png');
+const history_logo_chosen = require('../assets/images/history_img_chosen.png');
 
-const Navbar = ({navigation}) => {
-    const handleHomeButton = () => {
-        navigation.navigate('HomePage')
-    }
-    const handleHistoryButton = () => {
-        navigation.navigate('HistoryPage')
-    }
+const Navbar = ({navigation, isHome, isProfile, isHistory}) => {
+    const handleNavigation = (page) => {
+        navigation.navigate(page);
+    };
 
-    const handleProfileButton = () => {
-        navigation.navigate('ProfilePage')
-    }
     return (
         <>
             <View
                 className={'flex-row justify-between items-center bg-white px-6 py-3'}
                 style={style.elevated}
             >
-                <TouchableOpacity
-                    onPress={handleHomeButton}
-                >
+                <TouchableOpacity onPress={() => handleNavigation('HomePage')}>
                     <Image
-                        source={home_logo}
-                        className={'w-5 h-5'}
+                        source={isHome ? home_logo_chosen : home_logo}
+                        style={styles.logo}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity
-                    onPress={handleHistoryButton}
-                >
+                <TouchableOpacity onPress={() => handleNavigation('HistoryPage')}>
                     <Image
-                        source={history_logo}
-                        className={'w-5 h-5'}
+                        source={isHistory ? history_logo_chosen : history_logo}
+                        style={styles.logo}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity
-                    onPress={handleProfileButton}
-                >
+                <TouchableOpacity onPress={() => handleNavigation('ProfilePage')}>
                     <Image
-                        source={profile_logo}
-                        className={'w-5 h-5'}
+                        source={isProfile ? profile_logo_chosen : profile_logo}
+                        style={styles.logo}
                     />
                 </TouchableOpacity>
             </View>
@@ -58,6 +49,10 @@ const style = StyleSheet.create({
         shadowOpacity: 0.7,
         shadowRadius: 10,
         elevation: 10,
+    },
+    logo: {
+        width: 20,
+        height: 20
     }
 })
 
