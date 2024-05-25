@@ -1,7 +1,7 @@
 import React from 'react';
 import {View} from "react-native";
 
-const Order = ({navigation}) => {
+const InfoDetail = ({navigation}) => {
     return (
         <>
             <View
@@ -13,4 +13,4 @@ const Order = ({navigation}) => {
     )
 }
 
-export default Order
+export default InfoDetail

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, TouchableOpacity, View} from 'react-native';
+import {Image, TouchableOpacity, View, StyleSheet} from 'react-native';
 
 const profile_logo = require('../assets/images/profile_img.png');
 const home_logo = require('../assets/images/home_img.png');
@@ -20,6 +20,7 @@ const Navbar = ({navigation}) => {
         <>
             <View
                 className={'flex-row justify-between items-center bg-white px-6 py-3'}
+                style={style.elevated}
             >
                 <TouchableOpacity
                     onPress={handleHomeButton}
@@ -50,6 +51,14 @@ const Navbar = ({navigation}) => {
     )
 }
 
-const style = StyleSheet.create({})
+const style = StyleSheet.create({
+    elevated: {
+        shadowColor: '#2C6262',
+        shadowOffset: {width: 0, height: 0},
+        shadowOpacity: 0.7,
+        shadowRadius: 10,
+        elevation: 10,
+    }
+})
 
 export default Navbar;
