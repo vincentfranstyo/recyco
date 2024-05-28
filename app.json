@@ -15,7 +15,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.vfranstyo.recyco"
     },
     "android": {
       "adaptiveIcon": {
@@ -29,8 +30,9 @@
     },
     "extra": {
       "eas": {
-        "projectId": "950196b4-d688-40cc-9564-63e73edc2899"
+        "projectId": "92ffb699-8cba-4e19-9980-0a122bc6cd06"
       }
-    }
+    },
+    "owner": "erensiratu"
   }
 }
