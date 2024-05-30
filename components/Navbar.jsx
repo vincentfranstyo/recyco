@@ -16,28 +16,34 @@ const Navbar = ({navigation, isHome = false, isProfile = false, isHistory = fals
     return (
         <>
             <View
-                className={'flex-row justify-between items-center bg-white px-6 py-3 max-h-full fixed bottom-0'}
+                className={'flex-row justify-between items-center bg-white px-6 py-1 max-h-[80%] absolute bottom-0 w-full'}
                 style={style.elevated}
             >
-                <TouchableOpacity onPress={() => handleNavigation('HistoryPage')}>
+                <TouchableOpacity
+                    onPress={() => handleNavigation('HistoryPage')}
+                    className={'flex bg-white justify-start items-center p-2 max-h-full'}
+                >
                     <Image
                         source={isHistory ? history_logo_chosen : history_logo}
-                        // style={style.logo}
-                        className={`w-10 h-10`}
+                        className={`${isHistory ? 'w-[60px] h-[70px]' : 'w-[40px] h-[55px]'} `}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => handleNavigation('HomePage')}>
+                <TouchableOpacity
+                    onPress={() => handleNavigation('HomePage')}
+                    className={'flex bg-white justify-center items-center p-2 max-h-full'}
+                >
                     <Image
                         source={isHome ? home_logo_chosen : home_logo}
-                        // style={style.logo}
-                        className={`w-10 h-10`}
+                        className={`${isHome ? 'w-[60px] h-[70px]' : 'w-[33px] h-[60px]'} `}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => handleNavigation('ProfilePage')}>
+                <TouchableOpacity
+                    onPress={() => handleNavigation('ProfilePage')}
+                    className={'flex bg-white justify-start items-center p-2 max-h-full'}
+                >
                     <Image
                         source={isProfile ? profile_logo_chosen : profile_logo}
-                        // style={style.logo}
-                        className={`w-10 h-10`}
+                        className={`${isProfile ? 'w-[60px] h-[70px]' : 'w-[33px] h-[58px]'} `}
                     />
                 </TouchableOpacity>
             </View>

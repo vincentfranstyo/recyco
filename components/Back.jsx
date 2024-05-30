@@ -10,11 +10,11 @@ const Back = ({navigation, text}) => {
     return (
         <>
             <View
-                className={'flex-row justify-start items-center bg-white px-5 mb-5 w-full max-h-[10%]'}
+                className={'flex-row justify-start items-center bg-white pt-10 px-5 mb-2 w-full max-h-[20%]'}
             >
                 <TouchableOpacity
                     onPress={handleBack}
-                    className={'flex flex-col rounded-full w-full h-full justify-center items-center bg-white max-w-[10%]'}
+                    className={'flex flex-col rounded-full w-full h-full justify-center items-center bg-white max-w-[10%] max-h-[80%]'}
                     style={styles.backButton}
                 >
                     <Image

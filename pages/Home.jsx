@@ -1,13 +1,19 @@
 import React from 'react';
 import HomeHero from '../components/HomeHero'
-import {Text, TouchableOpacity, View} from 'react-native';
+import {SafeAreaView, Text, TouchableOpacity, View} from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient'
 import Info from "../components/Info";
 import Navbar from "../components/Navbar";
 
-const HomePage = ({navigation}) => {
+const orderDetail = {
+    username: 'asep',
+    address: 'Jl. Tamansari No. 100',
+    city: 'Kota Bandung, Jawa Barat'
+}
+
+const HomePage = ({navigation, route}) => {
     const handleOrderButton = () => {
-        navigation.navigate('OrderPage')
+        navigation.navigate('OrderPage', {orderDetail: orderDetail})
     }
     return (
         <>
@@ -15,9 +21,9 @@ const HomePage = ({navigation}) => {
                 className={'flex-col justify-center items-start max-w-[90%] mx-auto mt-0 pt-4 h-screen max-h-[92%] bg-transparent'}
             >
                 <HomeHero
-                    username={'asep'}
-                    address={'Jl. Raya Bogor, No. 12'}
-                    city={'Kota Bandung, Jawa Barat'}
+                    username={orderDetail.username}
+                    address={orderDetail.address}
+                    city={orderDetail.city}
                 />
                 <TouchableOpacity
                     onPress={handleOrderButton}
@@ -43,7 +49,10 @@ const HomePage = ({navigation}) => {
                     Info Untukmu!
                 </Text>
 
-                <Info navigation={navigation}/>
+                <Info
+                    navigation={navigation}
+                    route={route}
+                />
             </View>
             <Navbar
                 navigation={navigation}

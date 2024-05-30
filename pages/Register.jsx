@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {View, Text, TouchableOpacity, Image, TextInput, StyleSheet} from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient'
-import firebase from 'firebaseConfig'
+// import firebase from '../firebaseConfig'
 
 const login_logo = require('../assets/images/login_logo.png');
 const visibility_lock = require('../assets/images/visibility_lock.png');
@@ -16,7 +16,7 @@ const RegistPage = ({navigation}) => {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
     const handleRegister = () => {
-        console.log(firebase);
+        // console.log(firebase);
     };
 
     const handleBack = () => {

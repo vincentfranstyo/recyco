@@ -1,5 +1,6 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import LogoPage from './pages/Logo.jsx';
@@ -17,73 +18,28 @@ import ProfilePage from "./pages/Profile";
 
 const Stack = createStackNavigator();
 
-const App = () => {
-    return (
-        <NavigationContainer>
-            <Stack.Navigator initialRouteName="Intro" screenOptions={{headerShown: false}}>
-                <Stack.Screen
-                    name="LogoPage"
-                    component={LogoPage}
-                    options={{title: "Logo"}}
-                />
-                <Stack.Screen
-                    name="IntroPage"
-                    component={IntroPage}
-                    options={{title: "Intro"}}
-                />
-                <Stack.Screen
-                    name="Intro2Page"
-                    component={Intro2Page}
-                    options={{title: "Intro 2"}}
-                />
-                <Stack.Screen
-                    name={"LoginPage"}
-                    component={LoginPage}
-                    options={{title: "Login"}}
-                />
-                <Stack.Screen
-                    name={"RegistrationPage"}
-                    component={RegistrationPage}
-                    options={{title: "Registration"}}
-                />
-                <Stack.Screen
-                    name={"ForgetPasswordPage"}
-                    component={ForgetPassword}
-                    options={{title: "Forget Password"}}
-                />
-                <Stack.Screen
-                    name={'HomePage'}
-                    component={HomePage}
-                    options={{title: 'Home'}}
-                />
-                <Stack.Screen
-                    name={'OrderPage'}
-                    component={OrderPage}
-                    options={{title: 'Order'}}
-                />
-                <Stack.Screen
-                    name={'InfoDetailPage'}
-                    component={InfoDetailPage}
-                    options={{title: 'Info Detail'}}
-                />
-                <Stack.Screen
-                    name={'HistoryPage'}
-                    component={HistoryPage}
-                    options={{title: 'History'}}
-                />
-                <Stack.Screen
-                    name={'ProfilePage'}
-                    component={ProfilePage}
-                    options={{title: 'Profile'}}
-                />
-                <Stack.Screen
-                    name={'HistoryDetailPage'}
-                    component={HistoryDetailPage}
-                    options={{title: 'History Detail'}}
-                />
-            </Stack.Navigator>
-        </NavigationContainer>
-    );
-};
+const StackNavigator = () => (
+    <Stack.Navigator initialRouteName={"LogoPage"} screenOptions={{headerShown: false}}>
+        <Stack.Screen name="LogoPage" component={LogoPage} options={{title: "Logo"}}/>
+        <Stack.Screen name="IntroPage" component={IntroPage} options={{title: "Intro"}}/>
+        <Stack.Screen name="Intro2Page" component={Intro2Page} options={{title: "Intro 2"}}/>
+        <Stack.Screen name="LoginPage" component={LoginPage} options={{title: "Login"}}/>
+        <Stack.Screen name="RegistrationPage" component={RegistrationPage} options={{title: "Registration"}}/>
+        <Stack.Screen name={"HomePage"} component={HomePage} options={{title: "Home"}}/>
+        <Stack.Screen name="ForgetPasswordPage" component={ForgetPassword} options={{title: "Forget Password"}}/>
+        <Stack.Screen name="OrderPage" component={OrderPage} options={{title: 'Order'}}/>
+        <Stack.Screen name="InfoDetailPage" component={InfoDetailPage} options={{title: 'Info Detail'}}/>
+        <Stack.Screen name="HistoryDetailPage" component={HistoryDetailPage} options={{title: 'History Detail'}}/>
+        <Stack.Screen name="HistoryPage" component={HistoryPage} options={{title: 'History'}}/>
+        <Stack.Screen name="ProfilePage" component={ProfilePage} options={{title: 'Profile'}}/>
+    </Stack.Navigator>
+);
+
+const App = () => (
+    <NavigationContainer>
+        <StackNavigator/>
+    </NavigationContainer>
+);
 
 export default App;
+
