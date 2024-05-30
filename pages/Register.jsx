@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, TouchableOpacity, Image, TextInput, StyleSheet} from 'react-native';
+import {Image, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient'
 // import firebase from '../firebaseConfig'
 
@@ -17,6 +17,7 @@ const RegistPage = ({navigation}) => {
     const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
     const handleRegister = () => {
         // console.log(firebase);
+        navigation.navigate('LoginPage')
     };
 
     const handleBack = () => {
@@ -29,6 +30,10 @@ const RegistPage = ({navigation}) => {
 
     const toggleConfirmPasswordVisibility = () => {
         setIsConfirmPasswordVisible(!isConfirmPasswordVisible);
+    }
+
+    const isPasswordMatch = () => {
+        return password === passwordConfirmation;
     }
     return (
         <>
@@ -115,7 +120,7 @@ const RegistPage = ({navigation}) => {
                           className="w-full flex-row items-center p-3 mb-4 bg-gray-100 rounded-lg"
                     >
                         <TextInput
-                            className="flex-1"
+                            className="flex"
                             placeholder="Confirm Password"
                             secureTextEntry={!isConfirmPasswordVisible}
                             value={passwordConfirmation}
@@ -130,8 +135,20 @@ const RegistPage = ({navigation}) => {
                             />
                         </TouchableOpacity>
                     </View>
-                    <View class={"LoginButtonContainer"}
-                          className={"flex-row flex-end w-full mt-2.5"}
+                    {
+                        isPasswordMatch() ? null :
+                            <View class="ConfirmationPasswordInput"
+                                  className="w-full flex-row items-center"
+                            >
+                                <Text
+                                    className={'text-xs text-red-500'}
+                                >
+                                    Password tidak sama
+                                </Text>
+                            </View>
+                    }
+                    <View
+                        className={"flex-row flex-end w-full mt-2.5"}
                     >
                         <TouchableOpacity
                             onPress={handleRegister}

@@ -3,7 +3,6 @@ import {SafeAreaView, View} from "react-native";
 import Back from "../components/Back";
 import OrderHero from "../components/OrderHero";
 import OrderForm from "../components/OrderForm"
-import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 
 const Order = ({navigation, route}) => {
     return (

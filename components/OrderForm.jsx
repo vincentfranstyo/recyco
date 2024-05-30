@@ -18,11 +18,10 @@ const OrderForm = ({navigation}) => {
     }
 
     const handleSelectLoadOptionButton = (option) => {
-
         setLoadSchedule(option)
     }
 
-    const handlePrice = () => {
+    const handlePrice = (weight) => {
         if (!isNaN(parseInt(weight))) {
             setTotalPrice((weight * 1500).toString())
         } else {
@@ -34,14 +33,13 @@ const OrderForm = ({navigation}) => {
         setIsOrganic(!isOrganic)
     }
 
-    const handleWeightChange = (text) => {
-        const intWeight = parseInt(text, 10);
-        if (!isNaN(intWeight)) {
-            setWeight(intWeight.toString());
+    const handleWeightChange = (weight) => {
+        if (!isNaN(weight)) {
+            setWeight(weight.toString());
         } else {
             setWeight('0');
         }
-        handlePrice();
+        handlePrice(weight);
     };
 
     const loadOptions = [
@@ -165,7 +163,7 @@ const OrderForm = ({navigation}) => {
                         >
                             <TextInput
                                 className={'border-b-2 border-gray-200 text-center text-sm mx-3'}
-                                value={weight.toString()}
+                                value={weight}
                                 placeholder={'0'}
                                 onChangeText={handleWeightChange}
                                 min={0}

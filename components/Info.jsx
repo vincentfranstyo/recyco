@@ -1,6 +1,6 @@
 import React from 'react'
 import HeroCard from './HeroCard'
-import {FlatList, StyleSheet, TouchableOpacity} from "react-native";
+import {FlatList, ScrollView, StyleSheet, TouchableOpacity} from "react-native";
 
 const infoimg_1 = require('../assets/images/infoimg_1.png')
 
@@ -27,7 +27,8 @@ const Info = ({navigation, route}) => {
         navigation.navigate('InfoDetailPage', {info: item})
     }
     return (
-        <FlatList
+        <ScrollView>
+            <FlatList
             data={infos}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({item, index}) => (
@@ -46,6 +47,7 @@ const Info = ({navigation, route}) => {
             )}
             contentContainerStyle={style.scrollable}
         />
+        </ScrollView>
     )
 }
 
