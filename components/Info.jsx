@@ -1,15 +1,10 @@
 import React from 'react'
 import HeroCard from './HeroCard'
-import {FlatList, ScrollView, StyleSheet, TouchableOpacity} from "react-native";
+import {FlatList, StyleSheet, TouchableOpacity} from "react-native";
 
 const infoimg_1 = require('../assets/images/infoimg_1.png')
 
 const infos = [
-    {
-        img: infoimg_1,
-        sub: 'Mekanisme Green Building Certificate, Yuk Cari Tahu',
-        text: 'lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur, purus nec lacinia ultricies, tortor urna lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur, purus nec lacinia ultricies, tortor urna lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur, purus nec lacinia ultricies, tortor urna lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur, purus nec lacinia ultricies, tortor urna lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur, purus nec lacinia ultricies, tortor urna lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur, purus nec lacinia ultricies, tortor urna lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur, purus nec lacinia ultricies, tortor urna lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur, purus nec lacinia ultricies, tortor urna lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur, purus nec lacinia ultricies, tortor urna'
-    },
     {
         img: infoimg_1,
         sub: 'Mekanisme Green Building Certificate, Yuk Cari Tahu',
@@ -27,8 +22,7 @@ const Info = ({navigation, route}) => {
         navigation.navigate('InfoDetailPage', {info: item})
     }
     return (
-        <ScrollView>
-            <FlatList
+        <FlatList
             data={infos}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({item, index}) => (
@@ -47,7 +41,6 @@ const Info = ({navigation, route}) => {
             )}
             contentContainerStyle={style.scrollable}
         />
-        </ScrollView>
     )
 }
 
