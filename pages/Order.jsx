@@ -18,6 +18,7 @@ const Order = ({navigation, route}) => {
             />
             <OrderForm
                 navigation={navigation}
+                route={route}
             />
         </View>
     )

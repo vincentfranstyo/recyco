@@ -6,7 +6,7 @@ import Info from "../components/Info";
 import Navbar from "../components/Navbar";
 
 const orderDetail = {
-    username: 'asep',
+    username: 'Asep Spakbor',
     address: 'Jl. Tamansari No. 100',
     city: 'Kota Bandung, Jawa Barat'
 }

@@ -56,6 +56,7 @@ const HeroCard = ({title, img, sub, sub2}) => {
                         </Text>
                         <Text
                             className={'text-xs'}
+                            style={{fontFamily: 'Poppins'}}
                         >
                             {sub2}
                         </Text>

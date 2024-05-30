@@ -1,7 +1,8 @@
 import React from 'react';
 import {View} from "react-native";
+import Navbar from "../components/Navbar";
 
-const Profile = () => {
+const Profile = ({navigation}) => {
     return (
         <>
             <View
@@ -9,6 +10,10 @@ const Profile = () => {
             >
 
             </View>
+            <Navbar
+                navigation={navigation}
+                isProfile={true}
+            />
         </>
     )
 }

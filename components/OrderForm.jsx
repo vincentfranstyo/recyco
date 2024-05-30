@@ -5,7 +5,8 @@ import style from "../ui/style";
 
 const dropdown_arrow = require('../assets/images/dropdown_arrow.png');
 
-const OrderForm = ({navigation}) => {
+const OrderForm = ({navigation, route}) => {
+    const initialUser = route.params;
     const [name, setName] = useState('')
     const [phone, setPhone] = useState('')
     const [isOrganic, setIsOrganic] = useState(false)
@@ -21,9 +22,9 @@ const OrderForm = ({navigation}) => {
         setLoadSchedule(option)
     }
 
-    const handlePrice = (weight) => {
+    const handlePrice = (weight, isOrganic) => {
         if (!isNaN(parseInt(weight))) {
-            setTotalPrice((weight * 1500).toString())
+            setTotalPrice(((weight * 1500) + (isOrganic ? 5000 : 0)).toString());
         } else {
             setTotalPrice('0')
         }
@@ -31,6 +32,7 @@ const OrderForm = ({navigation}) => {
 
     const handleOrganic = () => {
         setIsOrganic(!isOrganic)
+        handlePrice(weight, isOrganic)
     }
 
     const handleWeightChange = (weight) => {
@@ -39,7 +41,7 @@ const OrderForm = ({navigation}) => {
         } else {
             setWeight('0');
         }
-        handlePrice(weight);
+        handlePrice(weight, isOrganic);
     };
 
     const loadOptions = [
@@ -47,8 +49,9 @@ const OrderForm = ({navigation}) => {
         '11.00 - 13.00',
         '16.00 - 18.00'
     ]
-    const handleUseMyDetail = (user) => {
-        // useUserDetail logic
+    const handleUseMyDetail = () => {
+        // console.log(initialUser.orderDetail.username)
+        setName(initialUser.orderDetail.username)
     }
 
     return (
@@ -96,7 +99,7 @@ const OrderForm = ({navigation}) => {
                                 Name pengirim*
                             </Text>
                             <TextInput
-                                placeholder={'Name Pengirim'}
+                                placeholder={'Nama Pengirim'}
                                 value={name}
                                 onChangeText={setName}
                                 keyboardType={'default'}

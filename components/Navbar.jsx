@@ -21,7 +21,7 @@ const Navbar = ({navigation, isHome = false, isProfile = false, isHistory = fals
             >
                 <TouchableOpacity
                     onPress={() => handleNavigation('HistoryPage')}
-                    className={'flex bg-white justify-start items-center p-2 max-h-full'}
+                    className={'flex bg-white justify-center items-center p-2 max-h-full'}
                 >
                     <Image
                         source={isHistory ? history_logo_chosen : history_logo}
@@ -34,12 +34,12 @@ const Navbar = ({navigation, isHome = false, isProfile = false, isHistory = fals
                 >
                     <Image
                         source={isHome ? home_logo_chosen : home_logo}
-                        className={`${isHome ? 'w-[60px] h-[70px]' : 'w-[33px] h-[60px]'} `}
+                        className={`${isHome ? 'w-[60px] h-[70px]' : 'w-[45px] h-[60px]'} `}
                     />
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={() => handleNavigation('ProfilePage')}
-                    className={'flex bg-white justify-start items-center p-2 max-h-full'}
+                    className={'flex bg-white justify-center items-center p-2 max-h-full'}
                 >
                     <Image
                         source={isProfile ? profile_logo_chosen : profile_logo}

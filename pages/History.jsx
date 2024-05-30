@@ -1,5 +1,6 @@
 import React from 'react';
 import {View} from "react-native";
+import Navbar from "../components/Navbar";
 
 const InfoDetail = ({navigation}) => {
     return (
@@ -9,6 +10,10 @@ const InfoDetail = ({navigation}) => {
             >
 
             </View>
+            <Navbar
+                navigation={navigation}
+                isHistory={true}
+            />
         </>
     )
 }

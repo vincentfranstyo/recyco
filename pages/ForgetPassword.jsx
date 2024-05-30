@@ -64,6 +64,7 @@ const ForgotPassword = ({navigation}) => {
                         keyboardType="email-address"
                         value={email}
                         onChangeText={setEmail}
+                        style={{fontFamily: 'Poppins'}}
                     />
                 </View>
                 <TouchableOpacity

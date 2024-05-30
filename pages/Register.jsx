@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import {Image, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
-import {LinearGradient} from 'expo-linear-gradient'
+import {Image, Text, TextInput, TouchableOpacity, View, StyleSheet} from 'react-native';
+import {LinearGradient} from 'expo-linear-gradient';
 // import firebase from '../firebaseConfig'
 
 const login_logo = require('../assets/images/login_logo.png');
@@ -20,6 +20,11 @@ const RegistPage = ({navigation}) => {
         navigation.navigate('LoginPage')
     };
 
+    const handleShortPassword = () => {
+        if (password.length === 0) return false;
+        return password.length < 8;
+    }
+
     const handleBack = () => {
         navigation.navigate('LoginPage');
     }
@@ -33,6 +38,7 @@ const RegistPage = ({navigation}) => {
     }
 
     const isPasswordMatch = () => {
+        if (passwordConfirmation.length === 0) return true;
         return password === passwordConfirmation;
     }
     return (
@@ -77,35 +83,39 @@ const RegistPage = ({navigation}) => {
                     className={'flex-1 justify-start items-center w-[80%] h-auto'}
                 >
                     <TextInput
-                        className={'w-full p-3 mb-4 bg-gray-100 rounded-lg'}
+                        className={'w-full p-3 mb-4 bg-gray-100 rounded-lg text-xs'}
                         placeholder="E-mail"
                         keyboardType="email-address"
                         value={email}
                         onChangeText={setEmail}
+                        style={{fontFamily: 'Poppins'}}
                     />
                     <TextInput
-                        className={'w-full p-3 mb-4 bg-gray-100 rounded-lg'}
+                        className={'w-full p-3 mb-4 bg-gray-100 rounded-lg text-xs'}
                         placeholder="Nama Instansi (opsional)"
                         keyboardType="default"
                         value={instanceName}
                         onChangeText={setInstanceName}
+                        style={{fontFamily: 'Poppins'}}
                     />
                     <TextInput
-                        className={'w-full p-3 mb-4 bg-gray-100 rounded-lg'}
+                        className={'w-full p-3 mb-4 bg-gray-100 rounded-lg text-xs'}
                         placeholder="Nama Lengkap"
                         keyboardType="default"
                         value={fullName}
                         onChangeText={setFullName}
+                        style={{fontFamily: 'Poppins'}}
                     />
                     <View class="PasswordInput"
-                          className="w-full flex-row items-center p-3 mb-4 bg-gray-100 rounded-lg"
+                          className={`w-full flex-row items-center p-3 bg-gray-100 rounded-lg ${handleShortPassword() ? null: 'mb-4'}`}
                     >
                         <TextInput
-                            className="flex-1"
-                            placeholder="Password"
+                            className="flex-1 text-xs"
+                            placeholder="Password more than 8 letters"
                             secureTextEntry={!isPasswordVisible}
                             value={password}
                             onChangeText={setPassword}
+                            style={{fontFamily: 'Poppins'}}
                         />
                         <TouchableOpacity
                             onPress={togglePasswordVisibility}
@@ -116,15 +126,29 @@ const RegistPage = ({navigation}) => {
                             />
                         </TouchableOpacity>
                     </View>
-                    <View class="ConfirmationPasswordInput"
-                          className="w-full flex-row items-center p-3 mb-4 bg-gray-100 rounded-lg"
+                    {
+                        handleShortPassword() ?
+                            <View
+                                className="w-full flex-row items-center mb-2"
+                            >
+                                <Text
+                                    className={'text-xs text-red-500'}
+                                    style={{fontFamily: 'Poppins'}}
+                                >
+                                    Password harus lebih dari 8 karakter
+                                </Text>
+                            </View> : null
+                    }
+                    <View
+                          className={`w-full flex-row justify-between items-center p-3 bg-gray-100 rounded-lg ${isPasswordMatch() ? 'mb-4': null}`}
                     >
                         <TextInput
-                            className="flex"
+                            className="flex text-xs"
                             placeholder="Confirm Password"
                             secureTextEntry={!isConfirmPasswordVisible}
                             value={passwordConfirmation}
                             onChangeText={setPasswordConfirmation}
+                            style={{fontFamily: 'Poppins'}}
                         />
                         <TouchableOpacity
                             onPress={toggleConfirmPasswordVisibility}
@@ -137,11 +161,12 @@ const RegistPage = ({navigation}) => {
                     </View>
                     {
                         isPasswordMatch() ? null :
-                            <View class="ConfirmationPasswordInput"
+                            <View
                                   className="w-full flex-row items-center"
                             >
                                 <Text
                                     className={'text-xs text-red-500'}
+                                    style={{fontFamily: 'Poppins'}}
                                 >
                                     Password tidak sama
                                 </Text>

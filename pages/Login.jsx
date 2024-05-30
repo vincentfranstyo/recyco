@@ -49,21 +49,23 @@ const LoginPage = ({navigation}) => {
                       className={'flex-1 justify-start items-center w-[80%] h-auto'}
                 >
                     <TextInput
-                        className={'w-full p-3 mb-4 bg-gray-100 rounded-lg'}
+                        className={'w-full p-3 mb-4 bg-gray-100 rounded-lg text-xs'}
                         placeholder="E-mail"
                         keyboardType="email-address"
                         value={email}
                         onChangeText={setEmail}
+                        style={{fontFamily: 'Poppins'}}
                     />
                     <View class="PasswordInput"
                           className="w-full flex-row items-center p-3 mb-4 bg-gray-100 rounded-lg"
                     >
                         <TextInput
-                            className="flex-1"
+                            className="flex-1 text-xs"
                             placeholder="Password"
                             secureTextEntry={!isPasswordVisible}
                             value={password}
                             onChangeText={setPassword}
+                            style={{fontFamily: 'Poppins'}}
                         />
                         <TouchableOpacity
                             onPress={togglePasswordVisibility}
@@ -120,7 +122,6 @@ const LoginPage = ({navigation}) => {
                                 >
                                     Login
                                 </Text>
-
                             </LinearGradient>
                         </TouchableOpacity>
                     </View>
