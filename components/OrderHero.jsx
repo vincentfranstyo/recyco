@@ -10,27 +10,27 @@ const OrderHero = ({route}) => {
     return (
         <>
             <View
-                className={'flex bg-transparent max-h-[30%] w-full max-w-full'}
+                className={'flex bg-white rounded-lg max-h-[35%] w-full max-w-full relative'}
                 style={style.glow}
             >
                 <View
-                    className={'w-full p-2 bg-transparent justify-between flex'}
+                    className={'w-full p-3 bg-transparent justify-between flex'}
                 >
                     <Image
-                        className={'w-full h-[100px]'}
+                        className={'w-full h-[125px] rounded-lg mb-2.5'}
                         source={order_hero_img}
                     />
                     <View
                         className={'w-full'}
                     >
                         <Text
-                            className={'text-left text-lg font-bold'}
+                            className={'text-left text-md'}
                             style={{fontFamily: 'Poppins-Bold'}}
                         >
                             {orderDetail.address}
                         </Text>
                         <Text
-                            className={'text-justify text-sm font-bold'}
+                            className={'text-justify text-xs'}
                             style={{fontFamily: 'Poppins'}}
                         >
                             {orderDetail.city}

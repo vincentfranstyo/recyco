@@ -10,7 +10,7 @@ const Back = ({navigation, text}) => {
     return (
         <>
             <View
-                className={'flex-row justify-start items-center bg-white pt-10 px-5 mb-2 w-full max-h-[20%]'}
+                className={'flex-row justify-start items-center bg-white pt-10 mb-2 w-full max-h-[20%]'}
             >
                 <TouchableOpacity
                     onPress={handleBack}

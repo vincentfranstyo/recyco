@@ -7,12 +7,12 @@ const InfoDetail = ({route, navigation}) => {
     return (
         <>
             <View
-                className={'flex flex-col justify-start items-center bg-white max-h-max w-full max-w-full'}
+                className={'flex flex-col justify-start items-start bg-white max-h-full w-full max-w-full'}
             >
                 <Back
-                    text={'Info Detail'}
-                    navigation={navigation}
-                />
+                        text={'Info Detail'}
+                        navigation={navigation}
+                    />
                 <InfoDetailComp
                     route={route}
                 />

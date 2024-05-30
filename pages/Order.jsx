@@ -1,13 +1,14 @@
 import React from 'react';
-import {SafeAreaView} from "react-native";
+import {SafeAreaView, View} from "react-native";
 import Back from "../components/Back";
 import OrderHero from "../components/OrderHero";
 import OrderForm from "../components/OrderForm"
+import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 
 const Order = ({navigation, route}) => {
     return (
-        <SafeAreaView
-            className={'flex-1 justify-center items-center w-full bg-white max-h-max max-w-full'}
+        <View
+            className={'flex w-screen bg-white h-full p-5'}
         >
             <Back
                 navigation={navigation}
@@ -16,8 +17,10 @@ const Order = ({navigation, route}) => {
             <OrderHero
                 route={route}
             />
-            <OrderForm/>
-        </SafeAreaView>
+            <OrderForm
+                navigation={navigation}
+            />
+        </View>
     )
 }
 
