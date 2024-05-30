@@ -7,17 +7,19 @@ const infoimg_1 = require('../assets/images/infoimg_1.png')
 const infos = [
     {
         img: infoimg_1,
-        sub: 'Mekanisme Green Building Certificate, Yuk Cari Tahu'
+        sub: 'Mekanisme Green Building Certificate, Yuk Cari Tahu',
+        text: 'lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur, purus nec lacinia ultricies, tortor urna lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur, purus nec lacinia ultricies, tortor urna lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur, purus nec lacinia ultricies, tortor urna lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur, purus nec lacinia ultricies, tortor urna lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur, purus nec lacinia ultricies, tortor urna lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur, purus nec lacinia ultricies, tortor urna lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur, purus nec lacinia ultricies, tortor urna lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur, purus nec lacinia ultricies, tortor urna lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur, purus nec lacinia ultricies, tortor urna'
     },
     {
         img: infoimg_1,
-        sub: 'Mekanisme Green Building Certificate, Yuk Cari Tahu'
+        sub: 'Mekanisme Green Building Certificate, Yuk Cari Tahu',
+        text: 'lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur, purus nec lacinia ultricies, tortor urna lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur, purus nec lacinia ultricies, tortor urna lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur, purus nec lacinia ultricies, tortor urna lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur, purus nec lacinia ultricies, tortor urna lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur, purus nec lacinia ultricies, tortor urna lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur, purus nec lacinia ultricies, tortor urna lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur, purus nec lacinia ultricies, tortor urna lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur, purus nec lacinia ultricies, tortor urna lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur, purus nec lacinia ultricies, tortor urna'
     }
 ]
 
 const Info = ({navigation}) => {
-    const handleInfoButton = () => {
-        navigation.navigate('InfoDetailPage')
+    const handleInfoButton = (item) => {
+        navigation.navigate('InfoDetailPage', {info: item})
     }
     return (
         <>
@@ -27,7 +29,7 @@ const Info = ({navigation}) => {
                     renderItem={({item, index}) => (
                         <TouchableOpacity
                             className={`bg-transparent w-fit ${index !== infos.length - 1 ? 'mb-4' : 'mb-0'} ${index === 0 ? 'mt-2' : 'mt-0'}`}
-                            onPress={handleInfoButton}
+                            onPress={() => handleInfoButton(item)}
                             key={index}
                         >
                             <HeroCard
