@@ -5,7 +5,7 @@ import style from '../ui/style'
 const order_hero_img = require('../assets/images/order_hero_img.png');
 
 const OrderHero = ({route}) => {
-    const {orderDetail} = route.params;
+    const {currentUser} = route.params;
 
     return (
         <>
@@ -27,13 +27,13 @@ const OrderHero = ({route}) => {
                             className={'text-left text-md'}
                             style={{fontFamily: 'Poppins-Bold'}}
                         >
-                            {orderDetail.address}
+                            {currentUser.address}
                         </Text>
                         <Text
                             className={'text-justify text-xs'}
                             style={{fontFamily: 'Poppins'}}
                         >
-                            {orderDetail.city}
+                            {currentUser.city}
                         </Text>
                     </View>
                 </View>

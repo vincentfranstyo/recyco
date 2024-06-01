@@ -1,18 +1,11 @@
 import React from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {useFonts} from "expo-font";
+import {Image, StyleSheet, Text, TouchableOpacity, View, Dimensions} from 'react-native';
 
+const screenWidth = Dimensions.get('window').width;
+const imageWidth = screenWidth * 0.86;
+const imageHeight = imageWidth * (110 / 330);
 
 const HeroCard = ({title, img, sub, sub2}) => {
-    const [fontsLoaded] = useFonts({
-        'Poppins-Black': require('../assets/fonts/Poppins/Poppins-Black.ttf'),
-        'Poppins-Bold': require('../assets/fonts/Poppins/Poppins-Bold.ttf'),
-        'Poppins': require('../assets/fonts/Poppins/Poppins-Regular.ttf'),
-    });
-
-    if (!fontsLoaded) {
-        return null;
-    }
 
     return (
         <View
@@ -67,10 +60,10 @@ const HeroCard = ({title, img, sub, sub2}) => {
                 <View
                     className={'flex flex-col justify-between items-start w-full my-auto'}
                 >
-
                     <Image
                         source={img}
-                        className={'w-max'}
+                        style={{ width: imageWidth, height: imageHeight }}
+                        className={'rounded-xl'}
                     />
                     <View style={style.horizontalLine} />
                     <Text

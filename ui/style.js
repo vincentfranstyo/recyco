@@ -23,10 +23,15 @@ const style = StyleSheet.create({
         backgroundColor: 'transparent',
     },
     hr: {
-        height: 1,
+        height: 2,
+        width: '75%',
         backgroundColor: '#2C6262',
         borderBottomWidth: StyleSheet.hairlineWidth
-    }
+    },
+    line: {
+        height: 2,
+        marginTop: 2,
+    },
 })
 
 export default style;
