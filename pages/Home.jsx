@@ -5,7 +5,7 @@ import {LinearGradient} from 'expo-linear-gradient'
 import Info from "../components/Info";
 import Navbar from "../components/Navbar";
 
-const orderDetail = {
+const currentUser = {
     username: 'Asep Spakbor',
     address: 'Jl. Tamansari No. 100',
     city: 'Kota Bandung, Jawa Barat'
@@ -13,7 +13,7 @@ const orderDetail = {
 
 const HomePage = ({navigation, route}) => {
     const handleOrderButton = () => {
-        navigation.navigate('OrderPage', {orderDetail: orderDetail})
+        navigation.navigate('OrderPage', {currentUser: currentUser})
     }
     return (
         <>
@@ -21,9 +21,9 @@ const HomePage = ({navigation, route}) => {
                 className={'flex-col justify-center items-start max-w-[90%] mx-auto mt-0 pt-4 h-screen max-h-[92%] bg-transparent'}
             >
                 <HomeHero
-                    username={orderDetail.username}
-                    address={orderDetail.address}
-                    city={orderDetail.city}
+                    username={currentUser.username}
+                    address={currentUser.address}
+                    city={currentUser.city}
                 />
                 <TouchableOpacity
                     onPress={handleOrderButton}
@@ -57,6 +57,8 @@ const HomePage = ({navigation, route}) => {
             <Navbar
                 navigation={navigation}
                 isHome={true}
+                route={route}
+                currentUser={currentUser}
             />
         </>
     )

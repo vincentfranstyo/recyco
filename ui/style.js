@@ -21,6 +21,11 @@ const style = StyleSheet.create({
         justifyContent: 'flex-start',
         alignItems: 'center',
         backgroundColor: 'transparent',
+    },
+    hr: {
+        height: 1,
+        backgroundColor: '#2C6262',
+        borderBottomWidth: StyleSheet.hairlineWidth
     }
 })
 

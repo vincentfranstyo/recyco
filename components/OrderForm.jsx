@@ -50,8 +50,8 @@ const OrderForm = ({navigation, route}) => {
         '16.00 - 18.00'
     ]
     const handleUseMyDetail = () => {
-        // console.log(initialUser.orderDetail.username)
-        setName(initialUser.orderDetail.username)
+        // console.log(initialUser.currentUser.username)
+        setName(initialUser.currentUser.username)
     }
 
     return (

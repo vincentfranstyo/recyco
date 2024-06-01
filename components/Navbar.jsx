@@ -8,9 +8,10 @@ const profile_logo_chosen = require('../assets/images/profile_img_chosen.png');
 const home_logo = require('../assets/images/home_img.png');
 const history_logo_chosen = require('../assets/images/history_img_chosen.png');
 
-const Navbar = ({navigation, isHome = false, isProfile = false, isHistory = false}) => {
+const Navbar = ({navigation, isHome = false, isProfile = false, isHistory = false, currentUser}) => {
     const handleNavigation = (page) => {
-        navigation.navigate(page);
+        // console.log(currentUser)
+        navigation.navigate(page, {currentUser: currentUser});
     };
 
     return (
