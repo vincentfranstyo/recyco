@@ -3,8 +3,10 @@ import {View} from "react-native";
 import Options from "../components/Options";
 import ProfileHero from "../components/ProfileHero";
 import Navbar from "../components/Navbar";
+import {FIREBASE_AUTH} from "../FirebaseConfig";
 
 const Profile = ({navigation, route}) => {
+    const auth = FIREBASE_AUTH;
     return (
         <>
             <View
@@ -16,6 +18,7 @@ const Profile = ({navigation, route}) => {
                 />
                 <Options
                     navigation={navigation}
+                    auth={auth}
                 />
             </View>
             <Navbar

@@ -38,10 +38,21 @@ const options = [
     }
 ]
 
-const Options = ({navigation}) => {
+const Options = ({navigation, auth}) => {
     const handleNavigateOption = (option) => {
         navigation.navigate(option)
     }
+
+    const handleLogout = () => {
+        auth.signOut().then(() => {
+            console.log('Logout Success')
+            alert('Logout Success')
+        }).catch((error) => {
+            console.error(error)
+            alert('Logout Failed' + error.message)
+        });
+    }
+
     return (
         <>
             {options.map((option, index) => (
@@ -83,7 +94,7 @@ const Options = ({navigation}) => {
                 )
             )}
             <TouchableOpacity
-                onPress={() => handleNavigateOption('Logout')}
+                onPress={handleLogout}
                 className={"flex w-[33%] h-auto justify-center items-center rounded-xl ml-4 my-10"}
             >
                 <LinearGradient
