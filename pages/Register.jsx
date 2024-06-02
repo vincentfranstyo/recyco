@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import {Image, Text, TextInput, TouchableOpacity, View, StyleSheet} from 'react-native';
+import {Image, Text, TextInput, TouchableOpacity, View, StyleSheet, KeyboardAvoidingView} from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient';
-import {FIREBASE_AUTH} from '../firebaseConfig'
+import {FIREBASE_AUTH} from '../FirebaseConfig'
 import {createUserWithEmailAndPassword} from 'firebase/auth';
 
 const login_logo = require('../assets/images/login_logo.png');
@@ -61,11 +61,11 @@ const RegistPage = ({navigation}) => {
                 className={'flex-1 flex-col justify-center items-center bg-white max-h-[30%]'}
             >
                 <View
-                    className={'flex-row justify-start items-start w-full h-auto bg-white max-h-[20%] ml-5 mt-[15%]'}
+                    className={'flex-row justify-start items-start w-full h-auto bg-white max-h-[20%] pl-3 mt-[15%]'}
                 >
                     <TouchableOpacity
                         onPress={handleBack}
-                        className={'flex rounded-full w-full h-full justify-center items-center bg-white max-w-[10%]'}
+                        className={'flex rounded-full w-full h-full justify-center items-center bg-white max-w-[10%] p-2'}
                         style={styles.backButton}
                     >
                         <Image
@@ -82,7 +82,7 @@ const RegistPage = ({navigation}) => {
                 </View>
 
                 <View
-                    className={'flex justify-center items-center bg-white max-h-[25%] mt-auto'}
+                    className={'flex justify-center items-center bg-transparent max-h-[25%] mt-auto'}
                 >
                     <Image
                         source={login_logo}
@@ -90,7 +90,7 @@ const RegistPage = ({navigation}) => {
                     />
                 </View>
             </View>
-            <View
+            <KeyboardAvoidingView
                 className={'flex-1 justify-start items-center bg-white pt-5'}
             >
                 <View
@@ -213,7 +213,7 @@ const RegistPage = ({navigation}) => {
                         </TouchableOpacity>
                     </View>
                 </View>
-            </View>
+            </KeyboardAvoidingView>
         </>
     );
 }

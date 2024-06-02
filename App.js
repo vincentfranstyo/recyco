@@ -36,6 +36,11 @@ const App = () => {
             <Stack.Navigator initialRouteName={"LogoPage"} screenOptions={{headerShown: false}}>
                 {user ? (
                     <>
+                        <Stack.Screen name="LoginPage" component={LoginPage} options={{title: "Login"}}/>
+                        <Stack.Screen name="RegistrationPage" component={RegistrationPage}
+                                      options={{title: "Registration"}}/>
+                        <Stack.Screen name="ForgetPasswordPage" component={ForgetPassword}
+                                      options={{title: "Forget Password"}}/>
                         <Stack.Screen name={"HomePage"} component={HomePage} options={{title: "Home"}}/>
                         <Stack.Screen name="OrderPage" component={OrderPage} options={{title: 'Order'}}/>
                         <Stack.Screen name={"OrderConfirmationPage"} component={OrderConfirmationPage}

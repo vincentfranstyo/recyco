@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Image, Text, TouchableOpacity, View} from "react-native";
 import style from "../ui/style";
 import {LinearGradient} from "expo-linear-gradient";
@@ -39,18 +39,23 @@ const options = [
 ]
 
 const Options = ({navigation, auth}) => {
+    const [loading, setLoading] = useState(false)
     const handleNavigateOption = (option) => {
         navigation.navigate(option)
     }
 
     const handleLogout = () => {
-        auth.signOut().then(() => {
-            console.log('Logout Success')
-            alert('Logout Success')
-        }).catch((error) => {
-            console.error(error)
-            alert('Logout Failed' + error.message)
-        });
+        setLoading(true)
+        auth.signOut()
+            .then(() => {
+                navigation.navigate('LoginPage')
+                console.log('Logout Success')
+            })
+            .catch((error) => {
+                console.error(error)
+                alert('Logout Failed' + error.message)
+                setLoading(false)
+            })
     }
 
     return (
