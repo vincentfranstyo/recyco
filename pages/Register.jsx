@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import {Image, Text, TextInput, TouchableOpacity, View, StyleSheet} from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient';
-// import firebase from '../firebaseConfig'
+import {FIREBASE_AUTH} from '../firebaseConfig'
+import {createUserWithEmailAndPassword} from 'firebase/auth';
 
 const login_logo = require('../assets/images/login_logo.png');
 const visibility_lock = require('../assets/images/visibility_lock.png');
@@ -15,9 +16,22 @@ const RegistPage = ({navigation}) => {
     const [passwordConfirmation, setPasswordConfirmation] = useState('');
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const auth = FIREBASE_AUTH;
+
     const handleRegister = () => {
-        // console.log(firebase);
-        navigation.navigate('LoginPage')
+        setLoading(true);
+        const response = createUserWithEmailAndPassword(auth, email, password)
+            .then(() => {
+                navigation.navigate('LoginPage')
+                console.log(response)
+                // alert('Login Success')
+            })
+            .catch((error) => {
+                console.error(error);
+                alert('Sign in Failed' + error.message)
+                setLoading(false);
+            });
     };
 
     const handleShortPassword = () => {
@@ -85,6 +99,7 @@ const RegistPage = ({navigation}) => {
                     <TextInput
                         className={'w-full p-3 mb-4 bg-gray-100 rounded-lg text-xs'}
                         placeholder="E-mail"
+                        autoCapitalize={"none"}
                         keyboardType="email-address"
                         value={email}
                         onChangeText={setEmail}
@@ -93,6 +108,7 @@ const RegistPage = ({navigation}) => {
                     <TextInput
                         className={'w-full p-3 mb-4 bg-gray-100 rounded-lg text-xs'}
                         placeholder="Nama Instansi (opsional)"
+                        autoCapitalize={"none"}
                         keyboardType="default"
                         value={instanceName}
                         onChangeText={setInstanceName}
@@ -101,6 +117,7 @@ const RegistPage = ({navigation}) => {
                     <TextInput
                         className={'w-full p-3 mb-4 bg-gray-100 rounded-lg text-xs'}
                         placeholder="Nama Lengkap"
+                        autoCapitalize={"none"}
                         keyboardType="default"
                         value={fullName}
                         onChangeText={setFullName}
@@ -112,6 +129,7 @@ const RegistPage = ({navigation}) => {
                         <TextInput
                             className="flex-1 text-xs"
                             placeholder="Password more than 8 letters"
+                            autoCapitalize={"none"}
                             secureTextEntry={!isPasswordVisible}
                             value={password}
                             onChangeText={setPassword}
@@ -145,6 +163,7 @@ const RegistPage = ({navigation}) => {
                         <TextInput
                             className="flex text-xs"
                             placeholder="Confirm Password"
+                            autoCapitalize={"none"}
                             secureTextEntry={!isConfirmPasswordVisible}
                             value={passwordConfirmation}
                             onChangeText={setPasswordConfirmation}

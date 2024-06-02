@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {View, Text, TouchableOpacity, Image, TextInput, StyleSheet, ActivityIndicator} from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient'
 import {FIREBASE_AUTH} from '../FirebaseConfig'
+import {signInWithEmailAndPassword} from 'firebase/auth';
 
 const login_logo = require('../assets/images/login_logo.png');
 const google_icon = require('../assets/images/google_icon.png');
@@ -16,12 +17,15 @@ const LoginPage = ({navigation}) => {
 
     const handleLogin = async () => {
         setLoading(true);
-        auth.signInWithEmailAndPassword(email, password)
+        const response = await signInWithEmailAndPassword(auth, email, password)
             .then(() => {
                 navigation.navigate('HomePage')
+                console.log(response)
+                // alert('Login Success')
             })
             .catch((error) => {
                 console.error(error);
+                alert('Sign in Failed' + error.message)
                 setLoading(false);
             });
     };
