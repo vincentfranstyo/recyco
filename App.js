@@ -15,6 +15,7 @@ import HistoryDetailPage from "./pages/HistoryDetail";
 import HistoryPage from "./pages/History";
 import ProfilePage from "./pages/Profile";
 import OrderConfirmationPage from "./pages/OrderConfirmation";
+import NotFoundPage from "./pages/NotFound";
 
 const Stack = createStackNavigator();
 
@@ -34,6 +35,7 @@ const StackNavigator = () => (
         <Stack.Screen name="HistoryDetailPage" component={HistoryDetailPage} options={{title: 'History Detail'}}/>
         <Stack.Screen name="HistoryPage" component={HistoryPage} options={{title: 'History'}}/>
         <Stack.Screen name="ProfilePage" component={ProfilePage} options={{title: 'Profile'}}/>
+            <Stack.Screen name={"NotFoundPage"} component={NotFoundPage} options={{title: 'Not Found'}}/>
     </Stack.Navigator>
 );
 

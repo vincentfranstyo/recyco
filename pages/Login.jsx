@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
-import {View, Text, TouchableOpacity, Image, TextInput, StyleSheet} from 'react-native';
+import {View, Text, TouchableOpacity, Image, TextInput, StyleSheet, ActivityIndicator} from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient'
+import {FIREBASE_AUTH} from '../FirebaseConfig'
 
 const login_logo = require('../assets/images/login_logo.png');
 const google_icon = require('../assets/images/google_icon.png');
@@ -10,8 +11,19 @@ const LoginPage = ({navigation}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-    const handleLogin = () => {
-        navigation.navigate('HomePage')
+    const [loading, setLoading] = useState(false);
+    const auth = FIREBASE_AUTH;
+
+    const handleLogin = async () => {
+        setLoading(true);
+        auth.signInWithEmailAndPassword(email, password)
+            .then(() => {
+                navigation.navigate('HomePage')
+            })
+            .catch((error) => {
+                console.error(error);
+                setLoading(false);
+            });
     };
 
     const handleForgetPassword = () => {
@@ -54,6 +66,7 @@ const LoginPage = ({navigation}) => {
                         keyboardType="email-address"
                         value={email}
                         onChangeText={setEmail}
+                        autoCapitalize={"none"}
                         style={{fontFamily: 'Poppins'}}
                     />
                     <View class="PasswordInput"
@@ -62,6 +75,7 @@ const LoginPage = ({navigation}) => {
                         <TextInput
                             className="flex-1 text-xs"
                             placeholder="Password"
+                            autoCapitalize={"none"}
                             secureTextEntry={!isPasswordVisible}
                             value={password}
                             onChangeText={setPassword}
@@ -88,7 +102,12 @@ const LoginPage = ({navigation}) => {
                             Lupa kata sandi?
                         </Text>
                     </TouchableOpacity>
-                    <View class={"LoginButtonContainer"}
+                    {loading ?
+                        <ActivityIndicator
+                            size={"large"}
+                            color={"#0000ff"}
+                        /> :
+                        <View
                           className={"flex-row w-full mt-2.5"}
                     >
                         <TouchableOpacity
@@ -125,6 +144,8 @@ const LoginPage = ({navigation}) => {
                             </LinearGradient>
                         </TouchableOpacity>
                     </View>
+                    }
+
                     <View
                         className={"flex-row mt-2.5 w-full justify-center items-center"}
                     >

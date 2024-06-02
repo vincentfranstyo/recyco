@@ -14,17 +14,17 @@ const options = [
     {
         img: setting,
         title: 'Pengaturan',
-        navigation: 'Setting'
+        navigation: 'NotFound'
     },
     {
         img: FAQ,
         title: 'FAQ',
-        navigation: 'FAQ'
+        navigation: 'NotFound'
     },
     {
         img: help,
         title: 'Bantuan',
-        navigation: 'Help'
+        navigation: 'NotFound'
     },
     {
         img: changePassword,
