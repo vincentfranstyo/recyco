@@ -16,6 +16,8 @@ const RegistPage = ({navigation}) => {
     const [passwordConfirmation, setPasswordConfirmation] = useState('');
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
+    const [city, setCity] = useState('');
+    const [address, setAddress] = useState('');
     const [loading, setLoading] = useState(false);
     const auth = FIREBASE_AUTH;
 
@@ -121,6 +123,24 @@ const RegistPage = ({navigation}) => {
                         keyboardType="default"
                         value={fullName}
                         onChangeText={setFullName}
+                        style={{fontFamily: 'Poppins'}}
+                    />
+                    <TextInput
+                        className={'w-full p-3 mb-4 bg-gray-100 rounded-lg text-xs'}
+                        placeholder="Alamat"
+                        autoCapitalize={"none"}
+                        keyboardType="default"
+                        value={address}
+                        onChangeText={setAddress}
+                        style={{fontFamily: 'Poppins'}}
+                    />
+                    <TextInput
+                        className={'w-full p-3 mb-4 bg-gray-100 rounded-lg text-xs'}
+                        placeholder="Kota, Provinsi"
+                        autoCapitalize={"none"}
+                        keyboardType="default"
+                        value={city}
+                        onChangeText={setCity}
                         style={{fontFamily: 'Poppins'}}
                     />
                     <View class="PasswordInput"
