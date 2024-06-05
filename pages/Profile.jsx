@@ -7,6 +7,7 @@ import {FIREBASE_AUTH} from "../FirebaseConfig";
 
 const Profile = ({navigation, route}) => {
     const auth = FIREBASE_AUTH;
+    const {currentUser} = route.params;
     return (
         <>
             <View
@@ -24,7 +25,7 @@ const Profile = ({navigation, route}) => {
             <Navbar
                     navigation={navigation}
                     isProfile={true}
-                    route={route}
+                    currentUser={currentUser}
                 />
         </>
     )

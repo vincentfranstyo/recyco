@@ -39,7 +39,6 @@ const options = [
 ]
 
 const Options = ({navigation, auth}) => {
-    const [loading, setLoading] = useState(false)
     const handleNavigateOption = (option) => {
         navigation.navigate(option)
     }

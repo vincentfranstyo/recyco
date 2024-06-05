@@ -34,6 +34,9 @@ const HomePage = ({navigation, route}) => {
     const handleOrderButton = () => {
         navigation.navigate('OrderPage', {currentUser: currentUser})
     }
+
+    console.log('home user ' + currentUser.fullName)
+
     return (
         <>
             <View

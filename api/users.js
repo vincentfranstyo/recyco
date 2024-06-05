@@ -11,10 +11,10 @@ export const getUser = async () => {
 }
 
 export const getUserByUid = async (uid) => {
-    const q = query(collection(FIRESTORE, 'users'), where('uid', '==', uid));
+    const userRef = collection(FIRESTORE, 'users');
+    const q = query(userRef, where('uid', '==', uid));
     const querySnapshot = await getDocs(q);
     let user = null;
-
     querySnapshot.forEach((doc) => {
         user = doc.data();
     });

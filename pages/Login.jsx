@@ -58,7 +58,7 @@ const LoginPage = ({navigation}) => {
 
             if (userCredential) {
                 console.log("User exists in Firestore. " + userCredential.user.uid);
-                Alert.alert('Login Success\nWelcome back, ' + email);
+                // Alert.alert('Login Success\nWelcome back, ' + email);
             } else {
                 console.log("User does not exist in Firestore.");
                 Alert.alert(`Login Failed\nUser with email ${email} does not exist in Firestore.`)

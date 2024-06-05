@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar";
 
 const History = ({navigation, route}) => {
     const {currentUser} = route.params;
-    console.log('this user ' + currentUser)
+    console.log('this user ' + currentUser.fullName)
     const data = [
         {date: '1 Juli 2023', totalSampah: '10kg', totalBiaya: 'Rp5.000', status: 'Pilah'},
         {date: '28 Juni 2023', totalSampah: '10kg', totalBiaya: 'Rp15.000', status: 'Campur'},
@@ -30,7 +30,7 @@ const History = ({navigation, route}) => {
                     <TouchableOpacity
                         key={index}
                         style={styles.card}
-                        onPress={() => navigation.navigate('HistoryDetailPage', {item})}
+                        onPress={() => navigation.navigate('HistoryDetailPage', {item: item, currentUser: currentUser})}
                     >
                         <View style={styles.detailsContainer}>
                             <View style={styles.detailsLeft}>
@@ -78,6 +78,7 @@ const History = ({navigation, route}) => {
             <Navbar
                 navigation={navigation}
                 isHistory={true}
+                currentUser={currentUser}
             />
         </>
     );

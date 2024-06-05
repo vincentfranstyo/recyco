@@ -5,6 +5,8 @@ import {FontAwesome5, Ionicons} from '@expo/vector-icons';
 import Back from "../components/Back";
 
 const HistoryDetail = ({navigation, route}) => {
+    const {currentUser} = route.params;
+    console.log("owo user ", currentUser)
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView>
