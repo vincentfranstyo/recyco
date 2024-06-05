@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
 import {Alert, Image, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient';
-import {FIREBASE_AUTH, FIRESTORE} from '../FirebaseConfig'
+import {FIREBASE_AUTH} from '../FirebaseConfig'
 import {createUserWithEmailAndPassword} from 'firebase/auth';
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
+import {addUser} from "../api/users";
 
 const login_logo = require('../assets/images/login_logo.png');
 const visibility_lock = require('../assets/images/visibility_lock.png');
@@ -27,40 +28,23 @@ const RegistPage = ({navigation}) => {
             Alert.alert('Passwords do not match!');
             return;
         }
-        // try {
-        //     const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-        //     const user = userCredential.user;
-        //
-        //     await FIRESTORE.collection('users').doc(user.uid).set({
-        //         full_name: fullName,
-        //         organization_name: instanceName,
-        //         email: email,
-        //         phone_number: '',
-        //         balance: 0,
-        //         points: 0,
-        //     });
-        // } catch (e) {
-        //     Alert.alert('Failed to register: ' + e.message);
-        // }
 
         const userCredential = createUserWithEmailAndPassword(auth, email, password)
             .then(async () => {
-                const user = userCredential.user;
-                await FIRESTORE.collection('users').doc(user.uid).set({
+                await addUser({
                     full_name: fullName,
-                    organization_name: instanceName,
+                    instance_name: instanceName,
                     email: email,
-                    phone_number: '',
+                    phone_number: phoneNumber,
                     balance: 0,
                     points: 0,
                 });
-                navigation.navigate('LoginPage')
                 console.log(userCredential)
-                // alert('Login Success')
+                navigation.navigate('LoginPage')
             })
             .catch((error) => {
                 console.error(error);
-                alert('Sign in Failed' + error.message)
+                Alert.alert('Sign in Failed\n' + error.message)
             });
     }
 
