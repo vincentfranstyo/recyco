@@ -5,8 +5,9 @@ import {getNews} from "../api/news";
 
 const infoimg_1 = require('../assets/images/infoimg_1.png')
 const infoimg_2 = require('../assets/images/infoimg_2.png')
+const infoimg_3 = require('../assets/images/infoimg_3.png')
 
-const images = [infoimg_1, infoimg_2]
+const images = [infoimg_1, infoimg_2, infoimg_3]
 
 const Info = ({navigation, route}) => {
     const [news, setNews] = useState([]);
@@ -44,7 +45,7 @@ const Info = ({navigation, route}) => {
             keyExtractor={(item, index) => index.toString()}
             renderItem={({item, index}) => (
                 <TouchableOpacity
-                    className={`bg-transparent w-fit ${index !== infos.length - 1 ? 'mb-4' : 'mb-0'} ${index === 0 ? 'mt-2' : 'mt-0'}`}
+                    className={`bg-transparent w-fit h-fit ${index !== infos.length - 1 ? 'mb-4' : 'mb-0'} ${index === 0 ? 'mt-2' : 'mt-0'}`}
                     onPress={() => handleInfoButton(item)}
                     key={index}
                 >
@@ -64,6 +65,7 @@ const Info = ({navigation, route}) => {
 const style = StyleSheet.create({
     scrollable: {
         flex: 1,
+        height: 'auto',
         flexDirection: 'column',
         justifyContent: 'flex-start',
         alignItems: 'center',

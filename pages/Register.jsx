@@ -43,10 +43,19 @@ const RegistPage = ({navigation}) => {
         //     Alert.alert('Failed to register: ' + e.message);
         // }
 
-        const response = createUserWithEmailAndPassword(auth, email, password)
-            .then(() => {
+        const userCredential = createUserWithEmailAndPassword(auth, email, password)
+            .then(async () => {
+                const user = userCredential.user;
+                await FIRESTORE.collection('users').doc(user.uid).set({
+                    full_name: fullName,
+                    organization_name: instanceName,
+                    email: email,
+                    phone_number: '',
+                    balance: 0,
+                    points: 0,
+                });
                 navigation.navigate('LoginPage')
-                console.log(response)
+                console.log(userCredential)
                 // alert('Login Success')
             })
             .catch((error) => {

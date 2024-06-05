@@ -20,7 +20,7 @@ const HeroCard = ({title, img, sub, sub2}) => {
                         className={'flex flex-row justify-between items-between max-h-[43%] w-full my-auto'}
                     >
                         <Text
-                            className={'text-xs text-[#2C6262]'}
+                            className={'text-xs text-[#2C6262] text-justify'}
                             style={{fontFamily: 'Poppins-Bold'}}
                         >
                             {title}
@@ -67,7 +67,7 @@ const HeroCard = ({title, img, sub, sub2}) => {
                     />
                     <View style={style.horizontalLine} />
                     <Text
-                        className={'text-xs text-[#2C6262] mt-2'}
+                        className={'text-xs text-[#2C6262] mt-2 text-justify'}
                         style={{fontFamily: 'Poppins-Bold'}}
                     >
                         {sub}
