@@ -14,27 +14,27 @@ const options = [
     {
         img: setting,
         title: 'Pengaturan',
-        navigation: 'NotFound'
+        navigation: 'NotFoundPage'
     },
     {
         img: FAQ,
         title: 'FAQ',
-        navigation: 'NotFound'
+        navigation: 'NotFoundPage'
     },
     {
         img: help,
         title: 'Bantuan',
-        navigation: 'NotFound'
+        navigation: 'NotFoundPage'
     },
     {
         img: changePassword,
         title: 'Ubah Password',
-        navigation: 'ChangePassword'
+        navigation: 'ChangePasswordPage'
     },
     {
         img: delAcc,
         title: 'Hapus Akun',
-        navigation: 'DeleteAccount'
+        navigation: 'DeleteAccountPage'
     }
 ]
 
@@ -45,7 +45,6 @@ const Options = ({navigation, auth}) => {
     }
 
     const handleLogout = () => {
-        setLoading(true)
         auth.signOut()
             .then(() => {
                 navigation.navigate('LoginPage')
@@ -54,7 +53,6 @@ const Options = ({navigation, auth}) => {
             .catch((error) => {
                 console.error(error)
                 alert('Logout Failed' + error.message)
-                setLoading(false)
             })
     }
 
@@ -74,7 +72,7 @@ const Options = ({navigation, auth}) => {
                         {/*}*/}
                         <TouchableOpacity
                             className={'flex flex-row justify-between items-center w-full max-h-full'}
-                            onPress={() => handleNavigateOption(option.title)}
+                            onPress={() => handleNavigateOption(option.navigation)}
                         >
                             <Image
                                 source={option.img}

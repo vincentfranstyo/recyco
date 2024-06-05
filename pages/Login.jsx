@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
-import {View, Text, TouchableOpacity, Image, TextInput, StyleSheet, ActivityIndicator} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {Image, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient'
 import {FIREBASE_AUTH} from '../FirebaseConfig'
-import {signInWithEmailAndPassword} from 'firebase/auth';
+import {GoogleAuthProvider, signInWithCredential, signInWithEmailAndPassword} from 'firebase/auth';
+import * as Google from 'expo-auth-session/providers/google';
 
 const login_logo = require('../assets/images/login_logo.png');
 const google_icon = require('../assets/images/google_icon.png');
@@ -12,11 +13,31 @@ const LoginPage = ({navigation}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-    const [loading, setLoading] = useState(false);
+    const [user, setUser] = useState(null);
     const auth = FIREBASE_AUTH;
 
+    const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
+        clientId: '865396782019-kfs33muie21apldv1f05h7ap4aupumbm.apps.googleusercontent.com',
+    });
+
+    useEffect(() => {
+            if (response?.type === 'success') {
+                const {id_token} = response.params;
+
+                const credential = GoogleAuthProvider.credential(id_token);
+
+                signInWithCredential(auth, credential)
+                    .then((userCredential) => {
+                        setUser(userCredential.user);
+                        navigation.navigate('HomePage')
+                    })
+                    .catch((error) => {
+                        console.log('Google sign in failed' + error.message);
+                    });
+            }
+        }, [response]);
+
     const handleLogin = async () => {
-        setLoading(true);
         const response = await signInWithEmailAndPassword(auth, email, password)
             .then(() => {
                 navigation.navigate('HomePage')
@@ -26,7 +47,6 @@ const LoginPage = ({navigation}) => {
             .catch((error) => {
                 console.error(error);
                 alert('Sign in Failed' + error.message)
-                setLoading(false);
             });
     };
 
@@ -38,8 +58,8 @@ const LoginPage = ({navigation}) => {
         navigation.navigate('RegistrationPage');
     }
 
-    const handleGoogleLogin = () => {
-        // Handle login with Google logic
+    const handleGoogleLogin = async () => {
+        await promptAsync();
     };
     const togglePasswordVisibility = () => {
         setIsPasswordVisible(!isPasswordVisible);
@@ -106,13 +126,8 @@ const LoginPage = ({navigation}) => {
                             Lupa kata sandi?
                         </Text>
                     </TouchableOpacity>
-                    {loading ?
-                        <ActivityIndicator
-                            size={"large"}
-                            color={"#0000ff"}
-                        /> :
-                        <View
-                          className={"flex-row w-full mt-2.5"}
+                    <View
+                        className={"flex-row w-full mt-2.5"}
                     >
                         <TouchableOpacity
                             class={"GoogleLoginButton"}
@@ -148,7 +163,6 @@ const LoginPage = ({navigation}) => {
                             </LinearGradient>
                         </TouchableOpacity>
                     </View>
-                    }
 
                     <View
                         className={"flex-row mt-2.5 w-full justify-center items-center"}

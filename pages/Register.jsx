@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
-import {Image, Text, TextInput, TouchableOpacity, View, StyleSheet, KeyboardAvoidingView} from 'react-native';
+import {Alert, Image, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient';
-import {FIREBASE_AUTH} from '../FirebaseConfig'
+import {FIREBASE_AUTH, FIRESTORE} from '../FirebaseConfig'
 import {createUserWithEmailAndPassword} from 'firebase/auth';
+import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 
 const login_logo = require('../assets/images/login_logo.png');
 const visibility_lock = require('../assets/images/visibility_lock.png');
@@ -18,11 +19,30 @@ const RegistPage = ({navigation}) => {
     const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
     const [city, setCity] = useState('');
     const [address, setAddress] = useState('');
-    const [loading, setLoading] = useState(false);
+    const [phoneNumber, setPhoneNumber] = useState('');
     const auth = FIREBASE_AUTH;
 
-    const handleRegister = () => {
-        setLoading(true);
+    const handleRegister = async () => {
+        if (password !== passwordConfirmation) {
+            Alert.alert('Passwords do not match!');
+            return;
+        }
+        try {
+            const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+            const user = userCredential.user;
+
+            await FIRESTORE.collection('users').doc(user.uid).set({
+                full_name: fullName,
+                organization_name: instanceName,
+                email: email,
+                phone_number: '',
+                balance: 0,
+                points: 0,
+            });
+        } catch (e) {
+            Alert.alert('Failed to register: ' + e.message);
+        }
+
         const response = createUserWithEmailAndPassword(auth, email, password)
             .then(() => {
                 navigation.navigate('LoginPage')
@@ -32,9 +52,9 @@ const RegistPage = ({navigation}) => {
             .catch((error) => {
                 console.error(error);
                 alert('Sign in Failed' + error.message)
-                setLoading(false);
             });
-    };
+    }
+
 
     const handleShortPassword = () => {
         if (password.length === 0) return false;
@@ -58,12 +78,13 @@ const RegistPage = ({navigation}) => {
         return password === passwordConfirmation;
     }
     return (
-        <>
+        <View
+            clasName={'flex bg-white'}>
             <View
-                className={'flex-1 flex-col justify-center items-center bg-white max-h-[30%]'}
+                className={'flex flex-col justify-center items-center bg-white max-h-[80%] min-h-0'}
             >
                 <View
-                    className={'flex-row justify-start items-start w-full h-auto bg-white max-h-[20%] pl-3 mt-[15%]'}
+                    className={'flex-row justify-start items-start w-full bg-white max-h-[20%] pl-3 mt-[15%]'}
                 >
                     <TouchableOpacity
                         onPress={handleBack}
@@ -92,14 +113,15 @@ const RegistPage = ({navigation}) => {
                     />
                 </View>
             </View>
-            <KeyboardAvoidingView
-                className={'flex-1 justify-start items-center bg-white pt-5'}
+            <KeyboardAwareScrollView
+                className={'flex bg-white pt-5 h-full'}
+                contentContainerStyle={{alignItems: 'center'}}
             >
                 <View
-                    className={'flex-1 justify-start items-center w-[80%] h-auto'}
+                    className={'flex items-center w-[80%] max-h-full'}
                 >
                     <TextInput
-                        className={'w-full p-3 mb-4 bg-gray-100 rounded-lg text-xs'}
+                        className={'w-full p-2 mb-4 bg-gray-100 rounded-lg text-xs'}
                         placeholder="E-mail"
                         autoCapitalize={"none"}
                         keyboardType="email-address"
@@ -108,7 +130,7 @@ const RegistPage = ({navigation}) => {
                         style={{fontFamily: 'Poppins'}}
                     />
                     <TextInput
-                        className={'w-full p-3 mb-4 bg-gray-100 rounded-lg text-xs'}
+                        className={'w-full p-2 mb-4 bg-gray-100 rounded-lg text-xs'}
                         placeholder="Nama Instansi (opsional)"
                         autoCapitalize={"none"}
                         keyboardType="default"
@@ -117,7 +139,7 @@ const RegistPage = ({navigation}) => {
                         style={{fontFamily: 'Poppins'}}
                     />
                     <TextInput
-                        className={'w-full p-3 mb-4 bg-gray-100 rounded-lg text-xs'}
+                        className={'w-full p-2 mb-4 bg-gray-100 rounded-lg text-xs'}
                         placeholder="Nama Lengkap"
                         autoCapitalize={"none"}
                         keyboardType="default"
@@ -126,7 +148,7 @@ const RegistPage = ({navigation}) => {
                         style={{fontFamily: 'Poppins'}}
                     />
                     <TextInput
-                        className={'w-full p-3 mb-4 bg-gray-100 rounded-lg text-xs'}
+                        className={'w-full p-2 mb-4 bg-gray-100 rounded-lg text-xs'}
                         placeholder="Alamat"
                         autoCapitalize={"none"}
                         keyboardType="default"
@@ -135,7 +157,7 @@ const RegistPage = ({navigation}) => {
                         style={{fontFamily: 'Poppins'}}
                     />
                     <TextInput
-                        className={'w-full p-3 mb-4 bg-gray-100 rounded-lg text-xs'}
+                        className={'w-full p-2 mb-4 bg-gray-100 rounded-lg text-xs'}
                         placeholder="Kota, Provinsi"
                         autoCapitalize={"none"}
                         keyboardType="default"
@@ -143,8 +165,17 @@ const RegistPage = ({navigation}) => {
                         onChangeText={setCity}
                         style={{fontFamily: 'Poppins'}}
                     />
+                    <TextInput
+                        className={'w-full p-2 mb-4 bg-gray-100 rounded-lg text-xs'}
+                        placeholder="Nomor telepon"
+                        autoCapitalize={"none"}
+                        keyboardType="default"
+                        value={phoneNUmber}
+                        onChangeText={setPhoneNumber}
+                        style={{fontFamily: 'Poppins'}}
+                    />
                     <View class="PasswordInput"
-                          className={`w-full flex-row items-center p-3 bg-gray-100 rounded-lg ${handleShortPassword() ? null: 'mb-4'}`}
+                          className={`w-full flex-row items-center p-2 bg-gray-100 rounded-lg ${handleShortPassword() ? null : 'mb-4'}`}
                     >
                         <TextInput
                             className="flex-1 text-xs"
@@ -178,7 +209,7 @@ const RegistPage = ({navigation}) => {
                             </View> : null
                     }
                     <View
-                          className={`w-full flex-row justify-between items-center p-3 bg-gray-100 rounded-lg ${isPasswordMatch() ? 'mb-4': null}`}
+                        className={`w-full flex-row justify-between items-center p-2 bg-gray-100 rounded-lg ${isPasswordMatch() ? 'mb-4' : null}`}
                     >
                         <TextInput
                             className="flex text-xs"
@@ -201,7 +232,7 @@ const RegistPage = ({navigation}) => {
                     {
                         isPasswordMatch() ? null :
                             <View
-                                  className="w-full flex-row items-center"
+                                className="w-full flex-row items-center"
                             >
                                 <Text
                                     className={'text-xs text-red-500'}
@@ -233,8 +264,8 @@ const RegistPage = ({navigation}) => {
                         </TouchableOpacity>
                     </View>
                 </View>
-            </KeyboardAvoidingView>
-        </>
+            </KeyboardAwareScrollView>
+        </View>
     );
 }
 

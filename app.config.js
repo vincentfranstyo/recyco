@@ -1,4 +1,4 @@
-{
+export default {
   "expo": {
     "name": "recyco",
     "slug": "recyco",
@@ -15,14 +15,24 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.vfranstyo.recyco"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/logo.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#ffffff",
+
       },
-      "package": "com.vfranstyo.recyco"
+      "package": "com.vfranstyo.recyco",
+      "googleServicesFile": './google-services.json',
+      "config": {
+        "googleSignIn": {
+          "apiKey": "AIzaSyAItJeVK7kUKkYMNfQihEzU2FnZsUYiND0",
+          "certificateHash": "05:9f:10:e4:c7:72:c9:75:b4:b5:94:31:c0:1a:66:55:d0:ed:43:d4",
+        }
+      },
+      "scheme": "com.vfranstyo.recyco",
     },
     "web": {
       "favicon": "./assets/logo.png"

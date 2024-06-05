@@ -63,6 +63,7 @@ const App = () => {
                                       options={{title: "Registration"}}/>
                         <Stack.Screen name="ForgetPasswordPage" component={ForgetPassword}
                                       options={{title: "Forget Password"}}/>
+                        <Stack.Screen name={"NotFoundPage"} component={NotFoundPage} options={{title: 'Not Found'}}/>
                     </>
                 )}
             </Stack.Navigator>
