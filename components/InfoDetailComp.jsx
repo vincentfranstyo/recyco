@@ -20,7 +20,7 @@ const InfoDetailComp = ({route}) => {
                     <View
                     className={'w-[100%]'}>
                         <Text
-                            className={'text-left text-lg text-[#2C6262] w-[100%] max-h-[35%] px-2'}
+                            className={'text-left text-lg text-[#2C6262] w-[100%] max-h-[65%] px-2'}
                             style={{fontFamily: 'Poppins-Black'}}
                         >
                             {info.sub}
@@ -29,11 +29,9 @@ const InfoDetailComp = ({route}) => {
                             className={'text-justify text-xs text-black mt-2 px-2 w-[100%] max-h-[90%] mb-5'}
                             style={{fontFamily: 'Poppins'}}
                         >
-                            {info.text}
+                            {info.sub2}
                         </Text>
                     </View>
-
-
                 </ScrollView>
             </View>
         </>

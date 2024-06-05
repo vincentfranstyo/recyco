@@ -13,36 +13,14 @@ const LoginPage = ({navigation}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-    const [user, setUser] = useState(null);
     const auth = FIREBASE_AUTH;
-
-    const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
-        clientId: '865396782019-kfs33muie21apldv1f05h7ap4aupumbm.apps.googleusercontent.com',
-    });
-
-    useEffect(() => {
-            if (response?.type === 'success') {
-                const {id_token} = response.params;
-
-                const credential = GoogleAuthProvider.credential(id_token);
-
-                signInWithCredential(auth, credential)
-                    .then((userCredential) => {
-                        setUser(userCredential.user);
-                        navigation.navigate('HomePage')
-                    })
-                    .catch((error) => {
-                        console.log('Google sign in failed' + error.message);
-                    });
-            }
-        }, [response]);
 
     const handleLogin = async () => {
         const response = await signInWithEmailAndPassword(auth, email, password)
             .then(() => {
                 navigation.navigate('HomePage')
                 console.log(response)
-                // alert('Login Success')
+                alert('Login Success')
             })
             .catch((error) => {
                 console.error(error);
@@ -58,8 +36,29 @@ const LoginPage = ({navigation}) => {
         navigation.navigate('RegistrationPage');
     }
 
+    // const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
+    //     clientId: '865396782019-kfs33muie21apldv1f05h7ap4aupumbm.apps.googleusercontent.com',
+    // });
+    //
+    // useEffect(() => {
+    //         if (response?.type === 'success') {
+    //             const {id_token} = response.params;
+    //
+    //             const credential = GoogleAuthProvider.credential(id_token);
+    //
+    //             signInWithCredential(auth, credential)
+    //                 .then((userCredential) => {
+    //                     setUser(userCredential.user);
+    //                     navigation.navigate('HomePage')
+    //                 })
+    //                 .catch((error) => {
+    //                     console.log('Google sign in failed' + error.message);
+    //                 });
+    //         }
+    //     }, [response]);
+
     const handleGoogleLogin = async () => {
-        await promptAsync();
+        // await promptAsync();
     };
     const togglePasswordVisibility = () => {
         setIsPasswordVisible(!isPasswordVisible);

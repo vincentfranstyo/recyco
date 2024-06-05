@@ -27,21 +27,21 @@ const RegistPage = ({navigation}) => {
             Alert.alert('Passwords do not match!');
             return;
         }
-        try {
-            const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-            const user = userCredential.user;
-
-            await FIRESTORE.collection('users').doc(user.uid).set({
-                full_name: fullName,
-                organization_name: instanceName,
-                email: email,
-                phone_number: '',
-                balance: 0,
-                points: 0,
-            });
-        } catch (e) {
-            Alert.alert('Failed to register: ' + e.message);
-        }
+        // try {
+        //     const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+        //     const user = userCredential.user;
+        //
+        //     await FIRESTORE.collection('users').doc(user.uid).set({
+        //         full_name: fullName,
+        //         organization_name: instanceName,
+        //         email: email,
+        //         phone_number: '',
+        //         balance: 0,
+        //         points: 0,
+        //     });
+        // } catch (e) {
+        //     Alert.alert('Failed to register: ' + e.message);
+        // }
 
         const response = createUserWithEmailAndPassword(auth, email, password)
             .then(() => {
@@ -150,7 +150,6 @@ const RegistPage = ({navigation}) => {
                     <TextInput
                         className={'w-full p-2 mb-4 bg-gray-100 rounded-lg text-xs'}
                         placeholder="Alamat"
-                        autoCapitalize={"none"}
                         keyboardType="default"
                         value={address}
                         onChangeText={setAddress}
@@ -159,7 +158,6 @@ const RegistPage = ({navigation}) => {
                     <TextInput
                         className={'w-full p-2 mb-4 bg-gray-100 rounded-lg text-xs'}
                         placeholder="Kota, Provinsi"
-                        autoCapitalize={"none"}
                         keyboardType="default"
                         value={city}
                         onChangeText={setCity}
@@ -170,7 +168,7 @@ const RegistPage = ({navigation}) => {
                         placeholder="Nomor telepon"
                         autoCapitalize={"none"}
                         keyboardType="default"
-                        value={phoneNUmber}
+                        value={phoneNumber}
                         onChangeText={setPhoneNumber}
                         style={{fontFamily: 'Poppins'}}
                     />

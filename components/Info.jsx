@@ -1,26 +1,43 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import HeroCard from './HeroCard'
 import {FlatList, StyleSheet, TouchableOpacity} from "react-native";
+import {getNews} from "../api/news";
 
 const infoimg_1 = require('../assets/images/infoimg_1.png')
+const infoimg_2 = require('../assets/images/infoimg_2.png')
 
-const infos = [
-    {
-        img: infoimg_1,
-        sub: 'Mekanisme Green Building Certificate, Yuk Cari Tahu',
-        text: 'lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur, purus nec lacinia ultricies, tortor urna lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur, purus nec lacinia ultricies, tortor urna lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur, purus nec lacinia ultricies, tortor urna lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur, purus nec lacinia ultricies, tortor urna lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur, purus nec lacinia ultricies, tortor urna lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur, purus nec lacinia ultricies, tortor urna lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur, purus nec lacinia ultricies, tortor urna lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur, purus nec lacinia ultricies, tortor urna lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur, purus nec lacinia ultricies, tortor urna'
-    },
-    {
-        img: infoimg_1,
-        sub: 'Mekanisme Green Building Certificate, Yuk Cari Tahu',
-        text: 'lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur, purus nec lacinia ultricies, tortor urna lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur, purus nec lacinia ultricies, tortor urna lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur, purus nec lacinia ultricies, tortor urna lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur, purus nec lacinia ultricies, tortor urna lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur, purus nec lacinia ultricies, tortor urna lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur, purus nec lacinia ultricies, tortor urna lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur, purus nec lacinia ultricies, tortor urna lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur, purus nec lacinia ultricies, tortor urna lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur, purus nec lacinia ultricies, tortor urna'
-    }
-]
+const images = [infoimg_1, infoimg_2]
 
 const Info = ({navigation, route}) => {
+    const [news, setNews] = useState([]);
+    const [infos, setInfos] = useState([]);
+
+    const fetchData = async () => {
+        try {
+            const newsData = await getNews();
+            setNews(newsData);
+
+            const mappedInfos = newsData.map((item, index) => ({
+                index: index,
+                title: item.title,
+                img: images[index % images.length],
+                sub: item.sub,
+                sub2: item.sub2
+            }));
+            setInfos(mappedInfos);
+        } catch (e) {
+            console.error("error fetching news: " + e);
+        }
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
     const handleInfoButton = (item) => {
         navigation.navigate('InfoDetailPage', {info: item})
     }
+
     return (
         <FlatList
             data={infos}
