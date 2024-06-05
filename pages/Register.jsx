@@ -4,11 +4,23 @@ import {LinearGradient} from 'expo-linear-gradient';
 import {FIREBASE_AUTH} from '../FirebaseConfig'
 import {createUserWithEmailAndPassword} from 'firebase/auth';
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
+import validate from "validate.js";
 import {addUser} from "../api/users";
 
 const login_logo = require('../assets/images/login_logo.png');
 const visibility_lock = require('../assets/images/visibility_lock.png');
 const back_button = require('../assets/images/back_button.png');
+
+const constraints = {
+    from: {
+        email: true,
+    },
+};
+
+const validateEmail = (email) => {
+    const result = validate({from: email}, constraints);
+    return result === undefined;
+};
 
 const RegistPage = ({navigation}) => {
     const [email, setEmail] = useState('');
@@ -24,30 +36,47 @@ const RegistPage = ({navigation}) => {
     const auth = FIREBASE_AUTH;
 
     const handleRegister = async () => {
+        const required = [email, password, fullName, passwordConfirmation, phoneNumber, address, city]
+
+        if (!validateEmail(email)) {
+            Alert.alert('Register Failed\nInvalid email format');
+            return;
+        }
+
+        if (required.some((value) => value.length === 0)) {
+            Alert.alert(required.find((value) => value.length === 0) + ' cannot be empty');
+            return;
+        }
+
         if (password !== passwordConfirmation) {
             Alert.alert('Passwords do not match!');
             return;
         }
 
-        const userCredential = createUserWithEmailAndPassword(auth, email, password)
-            .then(async () => {
-                await addUser({
-                    full_name: fullName,
-                    instance_name: instanceName,
-                    email: email,
-                    phone_number: phoneNumber,
-                    balance: 0,
-                    points: 0,
-                });
-                console.log(userCredential)
-                navigation.navigate('LoginPage')
-            })
-            .catch((error) => {
-                console.error(error);
-                Alert.alert('Sign in Failed\n' + error.message)
-            });
-    }
+        try {
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const uid = userCredential.user.uid;
 
+            await addUser({
+                uid: uid,
+                fullName: fullName,
+                instanceName: instanceName,
+                email: email,
+                phoneNumber: phoneNumber,
+                address: address,
+                city: city,
+                balance: 0,
+                points: 0,
+            });
+
+            console.log("User created and data stored in Firestore");
+            console.log(userCredential);
+            navigation.navigate('LoginPage');
+        } catch (error) {
+            console.error("Error creating user: ", error);
+            Alert.alert('Register Failed\n' + error.message);
+        }
+    };
 
     const handleShortPassword = () => {
         if (password.length === 0) return false;
@@ -125,7 +154,7 @@ const RegistPage = ({navigation}) => {
                     <TextInput
                         className={'w-full p-2 mb-4 bg-gray-100 rounded-lg text-xs'}
                         placeholder="Nama Instansi (opsional)"
-                        autoCapitalize={"none"}
+                        autoCapitalize={"words"}
                         keyboardType="default"
                         value={instanceName}
                         onChangeText={setInstanceName}
@@ -134,7 +163,7 @@ const RegistPage = ({navigation}) => {
                     <TextInput
                         className={'w-full p-2 mb-4 bg-gray-100 rounded-lg text-xs'}
                         placeholder="Nama Lengkap"
-                        autoCapitalize={"none"}
+                        autoCapitalize={"words"}
                         keyboardType="default"
                         value={fullName}
                         onChangeText={setFullName}
@@ -144,6 +173,7 @@ const RegistPage = ({navigation}) => {
                         className={'w-full p-2 mb-4 bg-gray-100 rounded-lg text-xs'}
                         placeholder="Alamat"
                         keyboardType="default"
+                        autoCapitalize={"words"}
                         value={address}
                         onChangeText={setAddress}
                         style={{fontFamily: 'Poppins'}}
@@ -152,6 +182,7 @@ const RegistPage = ({navigation}) => {
                         className={'w-full p-2 mb-4 bg-gray-100 rounded-lg text-xs'}
                         placeholder="Kota, Provinsi"
                         keyboardType="default"
+                        autoCapitalize={"words"}
                         value={city}
                         onChangeText={setCity}
                         style={{fontFamily: 'Poppins'}}
@@ -160,7 +191,7 @@ const RegistPage = ({navigation}) => {
                         className={'w-full p-2 mb-4 bg-gray-100 rounded-lg text-xs'}
                         placeholder="Nomor telepon"
                         autoCapitalize={"none"}
-                        keyboardType="default"
+                        keyboardType="phone-pad"
                         value={phoneNumber}
                         onChangeText={setPhoneNumber}
                         style={{fontFamily: 'Poppins'}}

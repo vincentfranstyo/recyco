@@ -1,13 +1,24 @@
-import React, {useEffect, useState} from 'react';
-import {Image, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import React, {useState} from 'react';
+import {Alert, Image, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient'
 import {FIREBASE_AUTH} from '../FirebaseConfig'
-import {GoogleAuthProvider, signInWithCredential, signInWithEmailAndPassword} from 'firebase/auth';
-import * as Google from 'expo-auth-session/providers/google';
+import {signInWithEmailAndPassword} from 'firebase/auth';
+import validate from 'validate.js';
 
 const login_logo = require('../assets/images/login_logo.png');
 const google_icon = require('../assets/images/google_icon.png');
 const visibility_lock = require('../assets/images/visibility_lock.png');
+
+const constraints = {
+    from: {
+        email: true,
+    },
+};
+
+const validateEmail = (email) => {
+    const result = validate({from: email}, constraints);
+    return result === undefined;
+};
 
 const LoginPage = ({navigation}) => {
     const [email, setEmail] = useState('');
@@ -16,16 +27,48 @@ const LoginPage = ({navigation}) => {
     const auth = FIREBASE_AUTH;
 
     const handleLogin = async () => {
-        const response = await signInWithEmailAndPassword(auth, email, password)
-            .then(() => {
-                navigation.navigate('HomePage')
-                console.log(response)
-                alert('Login Success')
-            })
-            .catch((error) => {
-                console.error(error);
-                alert('Sign in Failed' + error.message)
-            });
+        if (!email || !password) {
+            Alert.alert('Login Failed\nEmail and password cannot be empty');
+            return;
+        }
+
+        if (password.length < 8) {
+            Alert.alert('Login Failed\nPassword must be at least 6 characters');
+        }
+
+        if (!validateEmail(email)) {
+            Alert.alert('Login Failed\nInvalid email format');
+            return;
+        }
+
+        // const response = await signInWithEmailAndPassword(auth, email, password)
+        //     .then(() => {
+        //         navigation.navigate('HomePage')
+        //         console.log(response)
+        //         alert('Login Success')
+        //     })
+        //     .catch((error) => {
+        //         console.error(error);
+        //         alert('Sign in Failed' + error.message)
+        //     });
+
+        try {
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            const uid = userCredential.user.uid;
+
+            if (userCredential) {
+                console.log("User exists in Firestore. " + userCredential.user.uid);
+                Alert.alert('Login Success\nWelcome back, ' + email);
+            } else {
+                console.log("User does not exist in Firestore.");
+                Alert.alert(`Login Failed\nUser with email ${email} does not exist in Firestore.`)
+            }
+            navigation.navigate('HomePage', {uid: uid});
+        } catch (error) {
+            console.error("Error during login: ", error);
+            Alert.alert('Login Failed\n' + error.message);
+        }
+
     };
 
     const handleForgetPassword = () => {

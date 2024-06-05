@@ -1,5 +1,5 @@
 import {FIRESTORE} from "../FirebaseConfig";
-import {addDoc, collection, getDocs, updateDoc, deleteDoc} from "firebase/firestore";
+import {addDoc, collection, getDocs, updateDoc, deleteDoc, query, where} from "firebase/firestore";
 
 export const getUser = async () => {
     const users = [];
@@ -10,18 +10,24 @@ export const getUser = async () => {
     return users;
 }
 
-export const getUserById = async (id) => {
-    const querySnapshot = await getDocs(collection(FIRESTORE, 'users'));
-    let users = null;
+export const getUserByUid = async (uid) => {
+    const q = query(collection(FIRESTORE, 'users'), where('uid', '==', uid));
+    const querySnapshot = await getDocs(q);
+    let user = null;
+
     querySnapshot.forEach((doc) => {
-        if (doc.id === id) {
-            users = doc.data();
-        }
+        user = doc.data();
     });
-    return users;
+
+    return user;
 }
 
 export const addUser = async (data) => {
+    const users = await getUser();
+    const isUserExist = users.find((user) => user.email === data.email);
+    if (isUserExist) {
+        return 'User already exist';
+    }
     await addDoc(collection(FIRESTORE, 'users'), data)
         .then(() => {
             console.log('User added successfully')
@@ -31,8 +37,8 @@ export const addUser = async (data) => {
         });
 }
 
-export const updateUser = async (id, data) => {
-    const userRef = collection(FIRESTORE, 'users', id);
+export const updateUser = async (uid, data) => {
+    const userRef = collection(FIRESTORE, 'users', uid);
     await updateDoc(userRef, data)
         .then(() => {
             console.log('User updated successfully')
@@ -42,8 +48,8 @@ export const updateUser = async (id, data) => {
         });
 }
 
-export const deleteUser = async (id) => {
-    const userRef = collection(FIRESTORE, 'users', id);
+export const deleteUser = async (uid) => {
+    const userRef = collection(FIRESTORE, 'users', uid);
     await deleteDoc(userRef)
         .then(() => {
             console.log('User deleted successfully')

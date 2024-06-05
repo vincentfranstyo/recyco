@@ -10,7 +10,7 @@ const history_logo_chosen = require('../assets/images/history_img_chosen.png');
 
 const Navbar = ({navigation, isHome = false, isProfile = false, isHistory = false, currentUser}) => {
     const handleNavigation = (page) => {
-        // console.log(currentUser)
+        console.log(currentUser)
         navigation.navigate(page, {currentUser: currentUser});
     };
 

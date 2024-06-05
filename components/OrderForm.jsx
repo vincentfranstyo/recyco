@@ -51,7 +51,7 @@ const OrderForm = ({navigation, route}) => {
     ]
     const handleUseMyDetail = () => {
         // console.log(initialUser.currentUser.username)
-        setName(initialUser.currentUser.username)
+        setName(initialUser.currentUser.fullName)
     }
 
     return (

@@ -2,7 +2,9 @@ import React from 'react';
 import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import Navbar from "../components/Navbar";
 
-const InfoDetail = ({navigation}) => {
+const History = ({navigation, route}) => {
+    const {currentUser} = route.params;
+    console.log('this user ' + currentUser)
     const data = [
         {date: '1 Juli 2023', totalSampah: '10kg', totalBiaya: 'Rp5.000', status: 'Pilah'},
         {date: '28 Juni 2023', totalSampah: '10kg', totalBiaya: 'Rp15.000', status: 'Campur'},
@@ -75,7 +77,7 @@ const InfoDetail = ({navigation}) => {
             </ScrollView>
             <Navbar
                 navigation={navigation}
-                isHome={true}
+                isHistory={true}
             />
         </>
     );
@@ -162,4 +164,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default InfoDetail
+export default History;

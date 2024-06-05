@@ -3,6 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {onAuthStateChanged} from 'firebase/auth';
 import {FIREBASE_AUTH} from "./FirebaseConfig";
+import {FontProvider} from "./contexts/FontContext";
 
 import LogoPage from './pages/Logo.jsx';
 import IntroPage from './pages/Intro.jsx';
@@ -19,6 +20,7 @@ import ProfilePage from "./pages/Profile";
 import OrderConfirmationPage from "./pages/OrderConfirmation";
 import NotFoundPage from "./pages/NotFound";
 
+
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -32,7 +34,8 @@ const App = () => {
     }, []);
 
     return (
-        <NavigationContainer>
+        <FontProvider>
+            <NavigationContainer>
             <Stack.Navigator initialRouteName={"LogoPage"} screenOptions={{headerShown: false}}>
                 {user ? (
                     <>
@@ -68,6 +71,7 @@ const App = () => {
                 )}
             </Stack.Navigator>
         </NavigationContainer>
+        </FontProvider>
     );
 }
 

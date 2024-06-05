@@ -17,10 +17,6 @@ const Intro2Page = ({navigation}) => {
         navigation.navigate('LoginPage');
     };
 
-    if (!fontsLoaded) {
-        return null;
-    }
-
     return (
         <TouchableOpacity
             onPress={handleViewClick}

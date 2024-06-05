@@ -21,7 +21,7 @@ const ProfileHero = ({navigation, route}) => {
                         className={'text-xl mb-2 text-center text-black'}
                         style={{fontFamily: 'Poppins-Black'}}
                     >
-                        {currentUser.username}
+                        {currentUser.fullName}
                     </Text>
                     <TouchableOpacity
                         className={'flex justify-center items-center mb-2'}
