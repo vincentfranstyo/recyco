@@ -1,41 +1,16 @@
 import React, {useEffect, useState} from 'react';
-import {SafeAreaView, Text, TouchableOpacity, View} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient'
 import Info from "../components/Info";
 import Navbar from "../components/Navbar";
 import HomeHero from '../components/HomeHero'
-import {getUserByUid} from "../api/users";
-
-const testUser = {
-    uid: '1',
-    username: 'John Doe',
-    address: 'Jl. Jend. Sudirman',
-    city: 'Jakarta'
-}
 
 const HomePage = ({navigation, route}) => {
-    const [currentUser, setcurrentUser] = useState({});
-    const { uid } = route.params;
-
-    const fetchData = async () => {
-        try {
-            const user = await getUserByUid(uid);
-            setcurrentUser(user);
-            console.log("currentuser", currentUser);
-        } catch (e) {
-            console.error("error fetching user: " + e);
-        }
-    }
-
-    useEffect(() => {
-        fetchData();
-    }, []);
+    const currentUser = route.params.currentUser;
 
     const handleOrderButton = () => {
         navigation.navigate('OrderPage', {currentUser: currentUser})
     }
-
-    console.log('home user ' + currentUser.fullName)
 
     return (
         <>

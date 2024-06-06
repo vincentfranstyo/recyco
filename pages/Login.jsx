@@ -21,6 +21,7 @@ const validateEmail = (email) => {
 };
 
 const LoginPage = ({navigation}) => {
+    // console.log(user.uid)
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);

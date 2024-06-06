@@ -1,7 +1,9 @@
-import React, {useState} from 'react';
-import {Image, Text, TextInput, TouchableOpacity, View} from "react-native";
+import React, {useEffect, useState} from 'react';
+import {Alert, Image, Text, TextInput, TouchableOpacity, View} from "react-native";
 import {LinearGradient} from "expo-linear-gradient";
 import style from "../ui/style";
+import {addOrder} from "../api/orders";
+import {updateUser} from "../api/users";
 
 const dropdown_arrow = require('../assets/images/dropdown_arrow.png');
 
@@ -10,30 +12,40 @@ const OrderForm = ({navigation, route}) => {
     const [name, setName] = useState('')
     const [phone, setPhone] = useState('')
     const [isOrganic, setIsOrganic] = useState(false)
+    // let isOrganic = false
     const [weight, setWeight] = useState('0')
     const [loadSchedule, setLoadSchedule] = useState('')
     const [totalPrice, setTotalPrice] = useState('0')
-
-    const handleOrder = () => {
-        navigation.navigate('OrderConfirmationPage')
-    }
 
     const handleSelectLoadOptionButton = (option) => {
         setLoadSchedule(option)
     }
 
     const handlePrice = (weight, isOrganic) => {
-        if (!isNaN(parseInt(weight))) {
-            setTotalPrice(((weight * 1500) + (isOrganic ? 5000 : 0)).toString());
+        if (!isNaN(parseInt(weight)) && parseInt(weight) > 0) {
+            // console.log(isOrganic)
+            setTotalPrice(((weight * 1500) + (isOrganic ? 0 : 5000)).toString());
         } else {
+            setTotalPrice('0')
+        }
+
+        if (weight > 100) {
+            Alert.alert('Error', 'Berat sampah tidak boleh lebih dari 100 Kg')
+            setWeight('0')
             setTotalPrice('0')
         }
     }
 
     const handleOrganic = () => {
+        console.log('before',isOrganic)
         setIsOrganic(!isOrganic)
-        handlePrice(weight, isOrganic)
+        console.log('after',isOrganic)
     }
+
+    useEffect (() => {
+        console.log('useEf', isOrganic)
+        handlePrice(weight, isOrganic)
+    })
 
     const handleWeightChange = (weight) => {
         if (!isNaN(weight)) {
@@ -52,6 +64,46 @@ const OrderForm = ({navigation, route}) => {
     const handleUseMyDetail = () => {
         // console.log(initialUser.currentUser.username)
         setName(initialUser.currentUser.fullName)
+        setPhone(initialUser.currentUser.phoneNumber)
+    }
+
+    const handleOrder = async () => {
+        if (name === '' || phone === '' || weight === '0' || loadSchedule === '') {
+            alert('Please fill all the form')
+            return
+        }
+
+        if (totalPrice !== weight * 1500 + (isOrganic ? 0 : 5000)) {
+            setTotalPrice((weight * 1500 + (isOrganic ? 0 : 5000).toString()))
+        }
+
+        const order = {
+            uid: initialUser.currentUser.uid,
+            name: name,
+            phone: phone,
+            isOrganic: isOrganic,
+            weight: weight,
+            loadSchedule: loadSchedule,
+            totalPrice: totalPrice
+        }
+
+        await addOrder(order)
+            .then(() => {
+                console.log('Order added successfully\n', order)
+                navigation.navigate('OrderConfirmationPage')
+            })
+            .catch((error) => {
+                console.error('Error adding order: ', error)
+                Alert.alert('Error adding order', error.message)
+            });
+
+        const user = {
+            ...initialUser.currentUser,
+            balance: initialUser.currentUser.balance - totalPrice,
+            points: initialUser.currentUser.points + 30
+        }
+        await updateUser(initialUser.currentUser.uid, {user: user})
+
     }
 
     return (
@@ -139,12 +191,15 @@ const OrderForm = ({navigation, route}) => {
                         </Text>
                         <TouchableOpacity
                             className={'max-w-[25%] w-[25%] bg-white rounded-full border-[#2C6262] border-2 justify-between items-center flex flex-row px-3'}
-                            onPress={handleOrganic}
+                            onPress={() => {
+                                handleOrganic();
+                            }}
                         >
                             <Text
                                 className={'text-[#2C6262] text-xs'}
                             >
                                 {isOrganic ? 'Ya' : 'Tidak'}
+                                {/*{isOrganic.toString()}*/}
                             </Text>
                             <Image
                                 source={dropdown_arrow}

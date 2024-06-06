@@ -1,6 +1,5 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Image, Text, TouchableOpacity, View} from "react-native";
-import style from "../ui/style";
 import {LinearGradient} from "expo-linear-gradient";
 
 const setting = require('../assets/images/settings.png')
@@ -62,13 +61,6 @@ const Options = ({navigation, auth}) => {
                         key={index}
                         className={'flex flex-col justify-between items-center bg-white w-full px-3 py-3 max-h-[50%]'}
                     >
-                        {/*{index === 0 ?*/}
-                        {/*    <View*/}
-                        {/*        className={'mb-2'}*/}
-                        {/*        style={style.hr}*/}
-                        {/*    >*/}
-                        {/*    </View> : null*/}
-                        {/*}*/}
                         <TouchableOpacity
                             className={'flex flex-row justify-between items-center w-full max-h-full'}
                             onPress={() => handleNavigateOption(option.navigation)}
@@ -88,10 +80,6 @@ const Options = ({navigation, auth}) => {
                                 className={'w-5 h-5'}
                             />
                         </TouchableOpacity>
-                        {/*<View*/}
-                        {/*    className={'mt-3'}*/}
-                        {/*    style={style.hr}*/}
-                        {/*></View>*/}
                     </View>
                 )
             )}

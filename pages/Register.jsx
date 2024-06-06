@@ -71,6 +71,7 @@ const RegistPage = ({navigation}) => {
 
             console.log("User created and data stored in Firestore");
             console.log(userCredential);
+            // console.log('uhuy')
             navigation.navigate('LoginPage');
         } catch (error) {
             console.error("Error creating user: ", error);
