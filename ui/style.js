@@ -16,7 +16,7 @@ const style = StyleSheet.create({
         elevation: 10,
     },
     scrollable: {
-        flex: 1,
+        flexGrow: 1,
         flexDirection: 'column',
         justifyContent: 'flex-start',
         alignItems: 'center',

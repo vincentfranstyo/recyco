@@ -5,19 +5,16 @@ import InfoDetailComp from "../components/InfoDetailComp";
 
 const InfoDetail = ({route, navigation}) => {
     return (
-        <>
-            <View
-                className={'flex flex-col justify-start items-start bg-white max-h-max w-full max-w-full'}
-            >
-                <Back
-                        text={'Info Detail'}
-                        navigation={navigation}
-                    />
-                <InfoDetailComp
-                    route={route}
-                />
-            </View>
-        </>
+        <View style={{flex: 1, backgroundColor: 'white'}}>
+            <Back
+                style={{paddingHorizontal: 15}}
+                text={'Info Detail'}
+                navigation={navigation}
+            />
+            <InfoDetailComp
+                route={route}
+            />
+        </View>
     )
 }
 

@@ -64,7 +64,7 @@ const Info = ({navigation, route}) => {
 
 const style = StyleSheet.create({
     scrollable: {
-        flex: 1,
+        flexGrow: 1,
         height: 'auto',
         flexDirection: 'column',
         justifyContent: 'flex-start',

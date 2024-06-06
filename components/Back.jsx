@@ -3,13 +3,14 @@ import {Image, Text, TouchableOpacity, View, StyleSheet} from 'react-native';
 
 const back_button = require('../assets/images/back_button.png');
 
-const Back = ({navigation, text}) => {
+const Back = ({navigation, text, style=null}) => {
     const handleBack = () => {
         navigation.goBack();
     }
     return (
         <>
             <View
+                style={style}
                 className={'flex-row justify-start items-center bg-white pt-10 mb-2 w-full max-h-[20%]'}
             >
                 <TouchableOpacity
