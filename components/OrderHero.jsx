@@ -1,11 +1,12 @@
 import React from 'react';
 import {View, Image, Text} from "react-native";
 import style from '../ui/style'
+import {useUser} from "../contexts/UserContext";
 
 const order_hero_img = require('../assets/images/order_hero_img.png');
 
-const OrderHero = ({route}) => {
-    const {currentUser} = route.params;
+const OrderHero = () => {
+    const {currentUser} = useUser();
 
     return (
         <>

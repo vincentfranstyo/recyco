@@ -14,11 +14,9 @@ const Order = ({navigation, route}) => {
                 text={'Order'}
             />
             <OrderHero
-                route={route}
             />
             <OrderForm
                 navigation={navigation}
-                route={route}
             />
         </View>
     )

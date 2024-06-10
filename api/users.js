@@ -1,5 +1,7 @@
-import {FIRESTORE} from "../FirebaseConfig";
-import {addDoc, collection, getDocs, updateDoc, deleteDoc, query, where} from "firebase/firestore";
+import {FIREBASE_AUTH, FIRESTORE} from "../FirebaseConfig";
+import {addDoc, collection, deleteDoc, doc, getDocs, query, updateDoc, where} from "firebase/firestore";
+import {useEffect, useState} from "react";
+import {onAuthStateChanged} from "firebase/auth";
 
 export const getUser = async () => {
     const users = [];
@@ -37,19 +39,42 @@ export const addUser = async (data) => {
         });
 }
 
-export const updateUser = async (uid, data) => {
-    const userRef = collection(FIRESTORE, 'users', uid);
-    await updateDoc(userRef, data)
-        .then(() => {
-            console.log('User updated successfully')
-        })
-        .catch((error) => {
-            console.error('Error updating user: ', error)
+const getUserDocId = async (uid) => {
+    try {
+        const userRef = collection(FIRESTORE, 'users');
+        const q = query(userRef, where('uid', '==', uid));
+        const querySnapshot = await getDocs(q);
+        let docId = null;
+        querySnapshot.forEach((doc) => {
+            docId = doc.id;
         });
+
+        if (!docId) {
+            throw new Error('User not found');
+        }
+
+        return docId;
+    } catch (error) {
+        console.error('Error getting user document ID: ', error);
+        throw error;
+    }
+}
+
+export const updateUser = async (uid, data) => {
+    try {
+        const id = await getUserDocId(uid);
+        const userDocRef = doc(FIRESTORE, 'users', id);
+        await updateDoc(userDocRef, data);
+        console.log('User updated successfully');
+    } catch (error) {
+        console.error('Error updating user: ', error);
+        throw error;
+    }
 }
 
 export const deleteUser = async (uid) => {
-    const userRef = collection(FIRESTORE, 'users', uid);
+    const id = await getUserDocId(uid);
+    const userRef = doc(FIRESTORE, 'users', id);
     await deleteDoc(userRef)
         .then(() => {
             console.log('User deleted successfully')

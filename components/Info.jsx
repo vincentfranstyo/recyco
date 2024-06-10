@@ -9,7 +9,7 @@ const infoimg_3 = require('../assets/images/infoimg_3.png')
 
 const images = [infoimg_1, infoimg_2, infoimg_3]
 
-const Info = ({navigation, route}) => {
+const Info = ({navigation}) => {
     const [news, setNews] = useState([]);
     const [infos, setInfos] = useState([]);
 

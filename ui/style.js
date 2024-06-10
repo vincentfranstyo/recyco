@@ -6,7 +6,7 @@ const style = StyleSheet.create({
         shadowOffset: {width: 0, height: 0},
         shadowOpacity: 0.5,
         shadowRadius: 2,
-        elevation: 10,
+        elevation: 5,
     },
     elevated: {
         shadowColor: '#2C6262',
@@ -32,6 +32,16 @@ const style = StyleSheet.create({
         height: 2,
         marginTop: 2,
     },
+    specialTouchable: {
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '50%',
+        height: 40,
+        backgroundColor: 'transparent',
+        borderRightWidth: 2,
+        borderRightColor: '#2C6262',
+    }
 })
 
 export default style;

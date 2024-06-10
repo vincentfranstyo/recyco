@@ -1,5 +1,6 @@
 import React from 'react';
 import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {useUser} from "../contexts/UserContext";
 
 const profile_logo = require('../assets/images/profile_img.png');
 const home_logo_chosen = require('../assets/images/home_img_chosen.png');
@@ -8,10 +9,9 @@ const profile_logo_chosen = require('../assets/images/profile_img_chosen.png');
 const home_logo = require('../assets/images/home_img.png');
 const history_logo_chosen = require('../assets/images/history_img_chosen.png');
 
-const Navbar = ({navigation, isHome = false, isProfile = false, isHistory = false, currentUser}) => {
+const Navbar = ({navigation, isHome = false, isProfile = false, isHistory = false}) => {
     const handleNavigation = (page) => {
-        console.log(currentUser)
-        navigation.navigate(page, {currentUser: currentUser});
+        navigation.navigate(page);
     };
 
     return (

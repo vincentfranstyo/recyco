@@ -1,5 +1,5 @@
 import {FIRESTORE} from "../FirebaseConfig";
-import {getDocs, collection, addDoc, updateDoc, deleteDoc} from "firebase/firestore";
+import {getDocs, collection, addDoc, updateDoc, deleteDoc, doc} from "firebase/firestore";
 
 export const getOrders = async () => {
     const orders = [];
@@ -32,7 +32,7 @@ export const addOrder = async (data) => {
 }
 
 export const updateOrder = async (id, data) => {
-    const orderRef = collection(FIRESTORE, 'orders', id);
+    const orderRef = doc(FIRESTORE, 'orders', id);
     await updateDoc(orderRef, data)
         .then(() => {
             console.log('Order updated successfully')
@@ -43,7 +43,7 @@ export const updateOrder = async (id, data) => {
 }
 
 export const deleteOrder = async (id) => {
-    const orderRef = collection(FIRESTORE, 'orders', id);
+    const orderRef = doc(FIRESTORE, 'orders', id);
     await deleteDoc(orderRef)
         .then(() => {
             console.log('Order deleted successfully')

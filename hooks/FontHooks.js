@@ -9,6 +9,7 @@ const useFonts = async () => {
             await Font.loadAsync({
                 'Poppins-Black': require('../assets/fonts/Poppins/Poppins-Black.ttf'),
                 'Poppins-Bold': require('../assets/fonts/Poppins/Poppins-Bold.ttf'),
+                'Poppins-Medium': require('../assets/fonts/Poppins/Poppins-Medium.ttf'),
                 'Poppins': require('../assets/fonts/Poppins/Poppins-Regular.ttf'),
             });
             setFontsLoaded(true);

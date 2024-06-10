@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, Text, TouchableOpacity, View} from "react-native";
+import {Alert, Image, Text, TouchableOpacity, View} from "react-native";
 import {LinearGradient} from "expo-linear-gradient";
 
 const setting = require('../assets/images/settings.png')
@@ -47,10 +47,11 @@ const Options = ({navigation, auth}) => {
             .then(() => {
                 navigation.navigate('LoginPage')
                 console.log('Logout Success')
+                Alert.alert('Logout Success')
             })
             .catch((error) => {
                 console.error(error)
-                alert('Logout Failed' + error.message)
+                Alert.alert('Logout Failed' + error.message)
             })
     }
 
@@ -85,7 +86,7 @@ const Options = ({navigation, auth}) => {
             )}
             <TouchableOpacity
                 onPress={handleLogout}
-                className={"flex w-[33%] h-auto justify-center items-center rounded-xl ml-4 my-10"}
+                className={"flex w-[33%] h-auto justify-center items-center rounded-xl ml-4 mt-0 mb-14"}
             >
                 <LinearGradient
                     start={{x: 0, y: 0}} end={{x: 1, y: 1}}

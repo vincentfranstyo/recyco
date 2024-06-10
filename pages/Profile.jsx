@@ -4,10 +4,12 @@ import Options from "../components/Options";
 import ProfileHero from "../components/ProfileHero";
 import Navbar from "../components/Navbar";
 import {FIREBASE_AUTH} from "../FirebaseConfig";
+import {useUser} from "../contexts/UserContext";
 
-const Profile = ({navigation, route}) => {
+const Profile = ({navigation}) => {
     const auth = FIREBASE_AUTH;
-    const {currentUser} = route.params;
+    const { currentUser } = useUser();
+    console.log('profile', currentUser)
     return (
         <>
             <View
@@ -15,7 +17,6 @@ const Profile = ({navigation, route}) => {
             >
                 <ProfileHero
                     navigation={navigation}
-                    route={route}
                 />
                 <Options
                     navigation={navigation}

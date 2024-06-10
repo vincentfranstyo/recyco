@@ -4,9 +4,11 @@ import {LinearGradient} from 'expo-linear-gradient'
 import Info from "../components/Info";
 import Navbar from "../components/Navbar";
 import HomeHero from '../components/HomeHero'
+import {useUser} from "../contexts/UserContext";
 
 const HomePage = ({navigation, route}) => {
-    const currentUser = route.params.currentUser;
+    const {currentUser} = useUser();
+    console.log('home', currentUser)
 
     const handleOrderButton = () => {
         navigation.navigate('OrderPage', {currentUser: currentUser})

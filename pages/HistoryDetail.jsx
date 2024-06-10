@@ -3,9 +3,10 @@ import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {FontAwesome5, Ionicons} from '@expo/vector-icons';
 import Back from "../components/Back";
+import {useUser} from "../contexts/UserContext";
 
 const HistoryDetail = ({navigation, route}) => {
-    const {currentUser} = route.params;
+    const {currentUser} = useUser();
     const {item} = route.params;
     console.log("item", item);
 
