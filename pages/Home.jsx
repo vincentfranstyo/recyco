@@ -24,6 +24,7 @@ const HomePage = ({navigation, route}) => {
                         username={currentUser.fullName}
                         address={currentUser.address}
                         city={currentUser.city}
+                        navigation={navigation}
                     />
                     <TouchableOpacity
                         onPress={handleOrderButton}

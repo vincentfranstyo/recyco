@@ -4,7 +4,6 @@ import Navbar from "../components/Navbar";
 
 const History = ({navigation, route}) => {
     const {currentUser} = route.params;
-    console.log('this user ' + currentUser.fullName)
     const data = [
         {date: '1 Juli 2023', totalSampah: '10kg', totalBiaya: 'Rp5.000', status: 'Pilah'},
         {date: '28 Juni 2023', totalSampah: '10kg', totalBiaya: 'Rp15.000', status: 'Campur'},

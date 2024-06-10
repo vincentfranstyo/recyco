@@ -1,12 +1,14 @@
 import React from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View, Dimensions} from 'react-native';
+import {Dimensions, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
 const screenWidth = Dimensions.get('window').width;
 const imageWidth = screenWidth * 0.86;
 const imageHeight = imageWidth * (110 / 330);
 
-const HeroCard = ({title, img, sub, sub2}) => {
-
+const HeroCard = ({title, img, sub, sub2, navigation}) => {
+    const handleChangeLocationButton = () => {
+        navigation.navigate('NotFoundPage');
+    }
     return (
         <View
             className={`bg-white p-2 rounded-xl shadow-md max-w-full mx-auto max-h-full`}
@@ -28,6 +30,7 @@ const HeroCard = ({title, img, sub, sub2}) => {
 
                         <TouchableOpacity
                             className={'h-full border-[#2C6262] border rounded-xl p-2'}
+                            onPress={handleChangeLocationButton}
                         >
                             <Text
                                 className={'text-[#2C6262] text-xs text-center'}
@@ -37,7 +40,7 @@ const HeroCard = ({title, img, sub, sub2}) => {
                             </Text>
                         </TouchableOpacity>
                     </View>
-                    <View style={style.horizontalLine} />
+                    <View style={style.horizontalLine}/>
                     <View
                         className={'flex-col justify-between items-start max-h-[55%] w-full my-auto'}
                     >
@@ -62,10 +65,10 @@ const HeroCard = ({title, img, sub, sub2}) => {
                 >
                     <Image
                         source={img}
-                        style={{ width: imageWidth, height: imageHeight }}
+                        style={{width: imageWidth, height: imageHeight}}
                         className={'rounded-xl'}
                     />
-                    <View style={style.horizontalLine} />
+                    <View style={style.horizontalLine}/>
                     <Text
                         className={'text-xs text-[#2C6262] mt-2 text-justify'}
                         style={{fontFamily: 'Poppins-Bold'}}

@@ -2,7 +2,7 @@ import {Text, View} from 'react-native';
 import React from 'react';
 import HeroCard from "./HeroCard";
 
-const HomeHero = ({username, address, city}) => {
+const HomeHero = ({username, address, city, navigation}) => {
     return (
         <>
             <View
@@ -30,6 +30,7 @@ const HomeHero = ({username, address, city}) => {
                     img={null}
                     sub={address}
                     sub2={city}
+                    navigation={navigation}
                 />
             </View>
         </>

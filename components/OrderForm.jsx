@@ -12,7 +12,6 @@ const OrderForm = ({navigation, route}) => {
     const [name, setName] = useState('')
     const [phone, setPhone] = useState('')
     const [isOrganic, setIsOrganic] = useState(false)
-    // let isOrganic = false
     const [weight, setWeight] = useState('0')
     const [loadSchedule, setLoadSchedule] = useState('')
     const [totalPrice, setTotalPrice] = useState('0')
@@ -37,13 +36,10 @@ const OrderForm = ({navigation, route}) => {
     }
 
     const handleOrganic = () => {
-        console.log('before',isOrganic)
         setIsOrganic(!isOrganic)
-        console.log('after',isOrganic)
     }
 
     useEffect (() => {
-        console.log('useEf', isOrganic)
         handlePrice(weight, isOrganic)
     })
 
@@ -62,14 +58,13 @@ const OrderForm = ({navigation, route}) => {
         '16.00 - 18.00'
     ]
     const handleUseMyDetail = () => {
-        // console.log(initialUser.currentUser.username)
         setName(initialUser.currentUser.fullName)
         setPhone(initialUser.currentUser.phoneNumber)
     }
 
     const handleOrder = async () => {
         if (name === '' || phone === '' || weight === '0' || loadSchedule === '') {
-            alert('Please fill all the form')
+            Alert.alert('Please fill all the form')
             return
         }
 
@@ -84,7 +79,8 @@ const OrderForm = ({navigation, route}) => {
             isOrganic: isOrganic,
             weight: weight,
             loadSchedule: loadSchedule,
-            totalPrice: totalPrice
+            totalPrice: totalPrice,
+            date: new Date()
         }
 
         await addOrder(order)
@@ -104,6 +100,13 @@ const OrderForm = ({navigation, route}) => {
         }
         await updateUser(initialUser.currentUser.uid, {user: user})
 
+        const history = {
+            uid: initialUser.currentUser.uid,
+            date: new Date(),
+            weight: weight,
+            status: isOrganic ? 'Pilah' : 'Campur',
+            totalPrice: totalPrice,
+        }
     }
 
     return (

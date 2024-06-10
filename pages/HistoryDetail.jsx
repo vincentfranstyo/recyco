@@ -7,15 +7,15 @@ import Back from "../components/Back";
 const HistoryDetail = ({navigation, route}) => {
     const {currentUser} = route.params;
     const {item} = route.params;
+    console.log("item", item);
 
-    // console.log("owo user ", currentUser)
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView>
                 <Back
                     style={{paddingHorizontal: 15}}
                     navigation={navigation}
-                    text={'Detail Pesanan'}
+                    text={'Detail Riwayat'}
                 />
 
                 <View style={styles.section}>
