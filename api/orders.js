@@ -1,4 +1,4 @@
-import {FIRESTORE} from "../FirebaseConfig";
+import {FIRESTORE} from "../FirebaseConfig.js";
 import {getDocs, collection, addDoc, updateDoc, deleteDoc, doc} from "firebase/firestore";
 
 export const getOrders = async () => {

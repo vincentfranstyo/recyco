@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Alert, Image, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient'
-import {FIREBASE_AUTH} from '../FirebaseConfig'
+import {FIREBASE_AUTH} from '../FirebaseConfig.js'
 import {signInWithEmailAndPassword} from 'firebase/auth';
 import validate from 'validate.js';
 

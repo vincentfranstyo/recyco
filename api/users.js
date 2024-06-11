@@ -1,4 +1,4 @@
-import {FIREBASE_AUTH, FIRESTORE} from "../FirebaseConfig";
+import {FIREBASE_AUTH, FIRESTORE} from "../FirebaseConfig.js";
 import {addDoc, collection, deleteDoc, doc, getDocs, query, updateDoc, where} from "firebase/firestore";
 import {useEffect, useState} from "react";
 import {onAuthStateChanged} from "firebase/auth";

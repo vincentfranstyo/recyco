@@ -204,17 +204,21 @@ const OrderForm = ({navigation}) => {
 
     return (
         <>
-            <View className={'flex bg-transparent w-full max-h-[70%] max-w-full justify-between py-5'}>
-                <View className={'w-full max-h-[40%] max-w-full bg-transparent flex justify-center items-center mb-2'}>
+            <View
+                className={'flex bg-transparent w-full max-h-[70%] max-w-full justify-between py-5'}>
+                <View
+                    className={'w-full max-h-[40%] max-w-full bg-transparent flex justify-center items-center mb-2'}>
                     <View className={'flex flex-row justify-between max-w-full w-full px-2'}>
                         <Text className={'text-sm text-black'} style={{fontFamily: 'Poppins-Bold'}}>
                             Detail Pengirim
                         </Text>
                         <TouchableOpacity onPress={handleUseMyDetail}
                                           className={"flex w-[33%] h-auto justify-center items-center rounded-xl mr-2"}>
-                            <LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 1}} colors={['#2C6262', '#BE8D62']}
+                            <LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 1}}
+                                            colors={['#2C6262', '#BE8D62']}
                                             className={"w-full rounded-full justify-center items-center py-2"}>
-                                <Text className={'text-center text-[8px] text-white'} style={{fontFamily: 'Poppins'}}>
+                                <Text className={'text-center text-[8px] text-white'}
+                                      style={{fontFamily: 'Poppins'}}>
                                     Pakai detail saya
                                 </Text>
                             </LinearGradient>
@@ -241,7 +245,8 @@ const OrderForm = ({navigation}) => {
                 </View>
                 <View className={'w-full max-h-[35%] flex bg-white rounded-xl'} style={style.glow}>
                     <View className={'w-full p-2 bg-transparent justify-between flex flex-row'}>
-                        <Text className={'text-left text-[10px] max-w-[70%]'} style={{fontFamily: 'Poppins-Bold'}}>
+                        <Text className={'text-left text-[10px] max-w-[70%]'}
+                              style={{fontFamily: 'Poppins-Bold'}}>
                             Apakah sampah sudah dipilah antara organik dan anorganik?
                         </Text>
                         <TouchableOpacity
@@ -258,8 +263,10 @@ const OrderForm = ({navigation}) => {
                               style={{fontFamily: 'Poppins-Black'}}>
                             Perkiraan berat sampah
                         </Text>
-                        <View className={'flex flex-row justify-between max-w-[30%] bg-transparent items-center'}>
-                            <TextInput className={'border-b-2 border-gray-200 text-center text-sm mx-3'} value={weight}
+                        <View
+                            className={'flex flex-row justify-between max-w-[30%] bg-transparent items-center'}>
+                            <TextInput className={'border-b-2 border-gray-200 text-center text-sm mx-3'}
+                                       value={weight}
                                        placeholder={'0'} onChangeText={handleWeightChange} min={0} max={100}
                                        keyboardType={'number-pad'}/>
                             <Text className={'text-sm text-[#2C6262]'} style={{fontFamily: 'Poppins-Bold'}}>
@@ -279,14 +286,16 @@ const OrderForm = ({navigation}) => {
                             <TouchableOpacity key={index} onPress={() => handleSelectLoadOptionButton(option)}
                                               className={`w-full h-auto bg-white rounded-full justify-center items-center py-2 max-w-[30%] ${loadSchedule === option ? 'bg-gray-200' : 'bg-white'}`}
                                               style={style.glow}>
-                                <Text className={'text-center text-[10px] text-black '} style={{fontFamily: 'Poppins'}}>
+                                <Text className={'text-center text-[10px] text-black '}
+                                      style={{fontFamily: 'Poppins'}}>
                                     {option}
                                 </Text>
                             </TouchableOpacity>
                         ))}
                     </View>
                 </View>
-                <View className={'w-full max-h-[20%] bg-transparent flex flex-row justify-between items-start px-2'}>
+                <View
+                    className={'w-full max-h-[20%] bg-transparent flex flex-row justify-between items-start px-2'}>
                     <View className={'max-w-[40%] flex justify-between items-start bg-transparent'}>
                         <Text className={'text-xs text-black'} style={{fontFamily: 'Poppins-Bold'}}>
                             Total Bayar
@@ -299,7 +308,8 @@ const OrderForm = ({navigation}) => {
                                       className={"flex w-[50%] h-full justify-center items-center rounded-full"}>
                         <LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 1}} colors={['#2C6262', '#BE8D62']}
                                         className={"w-full rounded-xl justify-center items-center py-1.5"}>
-                            <Text className={'text-center text-sm text-white'} style={{fontFamily: 'Poppins-Black'}}>
+                            <Text className={'text-center text-sm text-white'}
+                                  style={{fontFamily: 'Poppins-Black'}}>
                                 Pesan
                             </Text>
                         </LinearGradient>

@@ -3,7 +3,7 @@ import {View} from "react-native";
 import Options from "../components/Options";
 import ProfileHero from "../components/ProfileHero";
 import Navbar from "../components/Navbar";
-import {FIREBASE_AUTH} from "../FirebaseConfig";
+import {FIREBASE_AUTH} from "../FirebaseConfig.js";
 import {useUser} from "../contexts/UserContext";
 
 const Profile = ({navigation}) => {
