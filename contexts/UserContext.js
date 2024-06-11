@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
-import { getUserByUid, updateUser as updateUserData } from '../api/users'; // Ensure you have the updateUser function here
+import { getUserByUid, updateUser as updateUserData } from '../api/users';
 import { FIREBASE_AUTH } from '../FirebaseConfig';
 
 const UserContext = createContext();
@@ -10,10 +10,12 @@ export const useUser = () => useContext(UserContext);
 export const UserProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [currentUser, setCurrentUser] = useState(null);
+    const [isUserLoading, setIsUserLoading] = useState(true);
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(FIREBASE_AUTH, (user) => {
             setUser(user);
+            setIsUserLoading(false);
         });
         return () => unsubscribe();
     }, []);
@@ -22,11 +24,16 @@ export const UserProvider = ({ children }) => {
         const fetchUserData = async () => {
             if (user) {
                 try {
+                    setIsUserLoading(true);
                     const data = await getUserByUid(user.uid);
                     setCurrentUser(data);
                 } catch (e) {
-                    console.error("error fetching user: " + e);
+                    console.error("Error fetching user: " + e);
+                } finally {
+                    setIsUserLoading(false);
                 }
+            } else {
+                setIsUserLoading(false);
             }
         };
         fetchUserData();
@@ -45,7 +52,7 @@ export const UserProvider = ({ children }) => {
     };
 
     return (
-        <UserContext.Provider value={{ currentUser, updateUser }}>
+        <UserContext.Provider value={{ currentUser, updateUser, isUserLoading }}>
             {children}
         </UserContext.Provider>
     );

@@ -5,6 +5,7 @@ import Info from "../components/Info";
 import Navbar from "../components/Navbar";
 import HomeHero from '../components/HomeHero'
 import {useUser} from "../contexts/UserContext";
+import LoadingScreen from "../components/LoadingScreen"
 
 const HomePage = ({navigation, route}) => {
     const {currentUser} = useUser();
@@ -15,21 +16,7 @@ const HomePage = ({navigation, route}) => {
 
     if (!currentUser) {
         return (
-            <SafeAreaView
-                style={{flex: 1, backgroundColor: 'transparent'}}
-            >
-                <View
-                    style={{flex: 1}}
-                    className={'flex-col justify-center items-start max-w-[90%] mx-auto mt-0 pt-4 h-screen max-h-[92%] bg-transparent'}
-                >
-                    <Text
-                        className={'text-left text-lg text-black'}
-                        style={{fontFamily: 'Poppins-Bold'}}
-                    >
-                        Loading...
-                    </Text>
-                </View>
-            </SafeAreaView>
+            <LoadingScreen />
         )
     }
 

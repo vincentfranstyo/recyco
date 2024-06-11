@@ -4,6 +4,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import style from "../ui/style";
 import { addOrder } from "../api/orders";
 import { useUser } from '../contexts/UserContext';
+import {addHistory} from "../api/histories";
 
 const dropdown_arrow = require('../assets/images/dropdown_arrow.png');
 
@@ -102,14 +103,72 @@ const OrderForm = ({ navigation}) => {
                 Alert.alert('Error adding order', error.message);
             });
 
+        await makeHistory(currentUser, order);
         await updateUserBalance();
         navigation.navigate('OrderConfirmationPage', { order: order });
     };
 
-    const makeHistory = () => {
-        const orderHistory = {
+    const makeHistory = async (currentUser, order) => {
+        const randomPickupTime = (loadSched) => {
+            let randomNumber = Math.floor(Math.random() * 120)
+            let hour = loadSched.split('.')[0]
+            let minute = parseInt(loadSched.split('.')[1])
+            if (randomNumber < 60) {
+                let newMinute = minute + randomNumber
+                return newMinute < 10 ? `${hour}.0${newMinute}` : `${hour}.${newMinute}`
+            } else {
+                let newMinute = minute + randomNumber - 60
+                let newHour = parseInt(hour) + 1
+                let stringHour = newHour < 10 ? `0${newHour}` : `${newHour}`
+                return newMinute < 10 ? `${stringHour}.0${newMinute}` : `${stringHour}.${newMinute}`
+            }
+        }
+
+        const randomShipmentDone = (shipmentTime) => {
+            let randomNumber = Math.floor(Math.random() * 30)
+            let hour = parseInt(shipmentTime.split('.')[0])
+            let minute = parseInt(shipmentTime.split('.')[1])
+            let newMinute = minute + randomNumber
+
+            if (newMinute > 60) {
+                let newHour = hour + 1
+                let stringHour = newHour < 10 ? `0${newHour}` : `${newHour}`
+                newMinute = newMinute - 60
+                return newMinute < 10 ? `${stringHour}.0${newMinute}` : `${stringHour}.${newMinute}`
+            } else {
+                return newMinute < 10 ? `${hour}.0${newMinute}` : `${hour}.${newMinute}`
+            }
 
         }
+
+        const shipmentTime = randomPickupTime(order.loadSchedule)
+        const shipmentDone = randomShipmentDone(shipmentTime)
+
+        const orderHistory = {
+            uid: currentUser.uid,
+            name: currentUser.fullName,
+            phone: currentUser.phoneNumber,
+            location: currentUser.address,
+            city: currentUser.city,
+            orderDate: order.date,
+            orderTime: order.time,
+            weight: order.weight,
+            totalPrice: order.totalPrice,
+            status: order.isOrganic ? 'Pilah' : 'Campur',
+            points: 30,
+            shipmentTime: shipmentTime,
+            shipmentDone: shipmentDone
+        }
+
+        console.log(orderHistory)
+        await addHistory(orderHistory)
+            .then(() => {
+                console.log('History added successfully\n', orderHistory);
+            })
+            .catch((error) => {
+                console.error('Error adding history: ', error);
+                Alert.alert('Error adding history', error.message);
+            });
     }
 
     const updateUserBalance = async () => {

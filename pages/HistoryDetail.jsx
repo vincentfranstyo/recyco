@@ -8,7 +8,6 @@ import {useUser} from "../contexts/UserContext";
 const HistoryDetail = ({navigation, route}) => {
     const {currentUser} = useUser();
     const {item} = route.params;
-    console.log("item", item);
 
     return (
         <SafeAreaView style={styles.container}>

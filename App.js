@@ -18,15 +18,16 @@ import HistoryPage from "./pages/History";
 import ProfilePage from "./pages/Profile";
 import OrderConfirmationPage from "./pages/OrderConfirmation";
 import NotFoundPage from "./pages/NotFound";
+import LoadingScreen from "./components/LoadingScreen";
 
 const Stack = createStackNavigator();
 
 const AppNavigator = ({navigation}) => {
-    const {currentUser, updateUser} = useUser();
+    const {currentUser, updateUser, isUserLoading} = useUser();
     const navigationRef = React.createRef();
 
     useEffect(() => {
-        if (navigationRef.current) {
+        if (navigationRef.current && !isUserLoading) {
             if (currentUser) {
                 navigationRef.current.dispatch(
                     CommonActions.reset({
@@ -45,7 +46,12 @@ const AppNavigator = ({navigation}) => {
         }
     }, [currentUser]);
 
-    console.log(currentUser)
+    if (isUserLoading) {
+        return(
+<LoadingScreen/>            )
+    }
+
+    console.log('app', currentUser)
     return (
         <NavigationContainer ref={navigationRef}>
             <Stack.Navigator initialRouteName={currentUser ? 'HomePage' : 'LogoPage'}
