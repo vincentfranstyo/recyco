@@ -55,7 +55,7 @@ const History = ({ navigation }) => {
             <View style={styles.detailsContainer}>
                 <View style={styles.detailsLeft}>
                     <Text style={styles.detailsText}>Total Sampah:</Text>
-                    <Text style={styles.detailsValue}>{parseInt(item.weight).toString()}</Text>
+                    <Text style={styles.detailsValue}>{parseInt(item.weight).toString()} kg</Text>
                 </View>
                 <View style={styles.detailsRight}>
                     <Text style={styles.detailsText}>Total Biaya:</Text>

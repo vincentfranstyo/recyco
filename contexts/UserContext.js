@@ -1,7 +1,7 @@
 import React, {createContext, useContext, useEffect, useState} from 'react';
 import {onAuthStateChanged} from 'firebase/auth';
 import {getUserByUid, updateUser as updateUserData} from '../api/users';
-import {FIREBASE_AUTH} from '../FirebaseConfig.js';
+import {FIREBASE_AUTH} from '../FirebaseConfig';
 
 const UserContext = createContext();
 
