@@ -47,7 +47,7 @@ const ProfileHero = ({ navigation}) => {
                 <View className={'flex justify-center items-center my-2'}>
                     <Text
                         className={'text-xl mb-2 text-center text-black'}
-                        style={{ fontFamily: 'Poppins-Black' }}
+                        style={{ fontFamily: 'Poppins-Bold' }}
                     >
                         {user.fullName}
                     </Text>

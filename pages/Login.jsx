@@ -4,7 +4,6 @@ import {LinearGradient} from 'expo-linear-gradient'
 import {FIREBASE_AUTH} from '../FirebaseConfig'
 import {signInWithEmailAndPassword} from 'firebase/auth';
 import validate from 'validate.js';
-import {useUser} from "../contexts/UserContext";
 
 const login_logo = require('../assets/images/login_logo.png');
 const google_icon = require('../assets/images/google_icon.png');
@@ -22,8 +21,6 @@ const validateEmail = (email) => {
 };
 
 const LoginPage = ({navigation}) => {
-    // const user = useUser();
-    // console.log('login', user.uid)
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -49,7 +46,7 @@ const LoginPage = ({navigation}) => {
             const uid = userCredential.user.uid;
 
             if (userCredential) {
-                console.log("User exists in Firestore. " + userCredential.user.uid);
+                console.log("User exists in Firestore.");
             } else {
                 console.log("User does not exist in Firestore.");
                 Alert.alert(`Login Failed\nUser with email ${email} does not exist in Firestore.`)

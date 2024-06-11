@@ -40,6 +40,9 @@ export default {
     "extra": {
       "eas": {
         "projectId": "950196b4-d688-40cc-9564-63e73edc2899"
+      },
+      "router": {
+        "origin": false
       }
     },
     "plugins": [

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Alert, Image, Text, TouchableOpacity, View} from "react-native";
+import {Alert, Dimensions, Image, Modal, Text, TouchableOpacity, View} from "react-native";
 import {LinearGradient} from "expo-linear-gradient";
 import {useUser} from "../contexts/UserContext";
 
@@ -29,20 +29,25 @@ const options = [
     {
         img: changePassword,
         title: 'Ubah Password',
-        navigation: 'ChangePasswordPage'
+        navigation: 'NotFoundPage'
     },
     {
         img: delAcc,
         title: 'Hapus Akun',
-        navigation: 'DeleteAccountPage'
+        navigation: 'NotFoundPage'
     }
 ]
 
 const Options = ({navigation, auth}) => {
-    const { currentUser, updateUser } = useUser();
+    const {currentUser, updateUser} = useUser();
+    const [isModalVisible, setModalVisible] = useState(false);
     const [user, setUser] = useState(currentUser);
     const handleNavigateOption = (option) => {
         navigation.navigate(option)
+    }
+
+    const handleLogoutButton = () => {
+        toggleModal()
     }
 
     const handleLogout = () => {
@@ -59,6 +64,10 @@ const Options = ({navigation, auth}) => {
                 Alert.alert('Logout Failed' + error.message)
             })
     }
+
+    const toggleModal = () => {
+        setModalVisible(!isModalVisible);
+    };
 
     return (
         <>
@@ -90,7 +99,7 @@ const Options = ({navigation, auth}) => {
                 )
             )}
             <TouchableOpacity
-                onPress={handleLogout}
+                onPress={handleLogoutButton}
                 className={"flex w-[33%] h-auto justify-center items-center rounded-xl ml-4 mt-0 mb-14"}
             >
                 <LinearGradient
@@ -105,6 +114,32 @@ const Options = ({navigation, auth}) => {
                     </Text>
                 </LinearGradient>
             </TouchableOpacity>
+
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={isModalVisible}
+                onRequestClose={handleLogoutButton}
+            >
+                <View className="bg-white p-5 mt-auto rounded-lg">
+                    <Text className="text-lg font-bold mb-4">Confirm Logout</Text>
+                    <Text className="text-base mb-4">Are you sure you want to logout?</Text>
+                    <View className="flex-row justify-center gap-x-10">
+                        <TouchableOpacity
+                            onPress={handleLogout}
+                            className="px-4 py-2 bg-[#2C6262] rounded-lg"
+                        >
+                            <Text className="text-white">Yes</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={handleLogoutButton}
+                            className="px-4 py-2 bg-[#BE8D62] rounded-lg"
+                        >
+                            <Text className="text-white">No</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </Modal>
         </>
     )
 }

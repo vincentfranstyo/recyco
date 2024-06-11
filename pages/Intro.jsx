@@ -1,25 +1,13 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, Image} from 'react-native';
-import {useFonts} from 'expo-font';
 
-const landing_1_bg = require('../assets/images/landing_1_bg.png');
 const landing_1 = require('../assets/images/landing_1.png');
 const arrow_forward = require('../assets/images/arrow_forward.png');
 
 const IntroPage = ({navigation}) => {
-    const [fontsLoaded] = useFonts({
-        'Poppins-Black': require('../assets/fonts/Poppins/Poppins-Black.ttf'),
-        'Poppins-Bold': require('../assets/fonts/Poppins/Poppins-Bold.ttf'),
-        'Poppins': require('../assets/fonts/Poppins/Poppins-Regular.ttf'),
-    });
-
     const handleViewClick = () => {
         navigation.navigate('Intro2Page');
     };
-
-    if (!fontsLoaded) {
-        return null;
-    }
 
     return (
         <TouchableOpacity
@@ -33,12 +21,8 @@ const IntroPage = ({navigation}) => {
                     className={'flex-1 justify-center items-center'}
                 >
                     <Image
-                        source={landing_1_bg}
-                        className={'absolute w-100 h-100'}
-                    />
-                    <Image
                         source={landing_1}
-                        className={'absolute w-69 h-69 top-43'}
+                        className={'absolute w-[400px] h-[400px]'}
                     />
                 </View>
                 <View
