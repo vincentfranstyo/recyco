@@ -44,24 +44,12 @@ const LoginPage = ({navigation}) => {
             return;
         }
 
-        // const response = await signInWithEmailAndPassword(auth, email, password)
-        //     .then(() => {
-        //         navigation.navigate('HomePage')
-        //         console.log(response)
-        //         alert('Login Success')
-        //     })
-        //     .catch((error) => {
-        //         console.error(error);
-        //         alert('Sign in Failed' + error.message)
-        //     });
-
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             const uid = userCredential.user.uid;
 
             if (userCredential) {
                 console.log("User exists in Firestore. " + userCredential.user.uid);
-                // Alert.alert('Login Success\nWelcome back, ' + email);
             } else {
                 console.log("User does not exist in Firestore.");
                 Alert.alert(`Login Failed\nUser with email ${email} does not exist in Firestore.`)

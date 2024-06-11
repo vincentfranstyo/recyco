@@ -5,7 +5,7 @@ import {useUser} from "../contexts/UserContext";
 
 const History = ({navigation}) => {
     const {currentUser} = useUser();
-    console.log('history', currentUser)
+    // console.log('history', currentUser)
     const data = [
         {date: '1 Juli 2023', totalSampah: '10kg', totalBiaya: 'Rp5.000', status: 'Pilah'},
         {date: '28 Juni 2023', totalSampah: '10kg', totalBiaya: 'Rp15.000', status: 'Campur'},

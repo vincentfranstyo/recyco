@@ -102,6 +102,17 @@ const OrderForm = ({ navigation}) => {
                 Alert.alert('Error adding order', error.message);
             });
 
+        await updateUserBalance();
+        navigation.navigate('OrderConfirmationPage', { order: order });
+    };
+
+    const makeHistory = () => {
+        const orderHistory = {
+
+        }
+    }
+
+    const updateUserBalance = async () => {
         const updatedUserData = {
             balance: currentUser.balance - totalPrice,
             points: currentUser.points + 30
@@ -117,9 +128,7 @@ const OrderForm = ({ navigation}) => {
                 console.error('Error updating user: ', error);
                 Alert.alert('Error updating user', error.message);
             });
-
-        navigation.navigate('OrderConfirmationPage', { order: order });
-    };
+    }
 
     return (
         <>
