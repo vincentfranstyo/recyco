@@ -7,12 +7,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:865396782019:android:0f244060365df497434376",
+        "mobilesdk_app_id": "1:865396782019:android:8cdc2024fea90356434376",
         "android_client_info": {
-          "package_name": "com.ppam.recyco"
+          "package_name": "com.vfranstyo.recyco"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "865396782019-bq7k2lhjq9kkj0q9rj8nvmuh9n0mvrqv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vfranstyo.recyco",
+            "certificate_hash": "059f10e4c772c975b4b59431c01a6655d0ed43d4"
+          }
+        },
         {
           "client_id": "865396782019-kfs33muie21apldv1f05h7ap4aupumbm.apps.googleusercontent.com",
           "client_type": 3
