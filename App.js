@@ -1,8 +1,8 @@
-import React, { useEffect, useRef } from 'react';
-import { CommonActions, NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { FontProvider } from "./contexts/FontContext";
-import { UserProvider, useUser } from "./contexts/UserContext";
+import React, {useEffect, useRef, useState} from 'react';
+import {CommonActions, NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import {FontProvider} from "./contexts/FontContext";
+import {UserProvider, useUser} from "./contexts/UserContext";
 
 import LogoPage from './pages/Logo.jsx';
 import IntroPage from './pages/Intro.jsx';
@@ -23,54 +23,57 @@ import LoadingScreen from "./components/LoadingScreen";
 const Stack = createStackNavigator();
 
 const AppNavigator = () => {
-    const { currentUser, isUserLoading, authChecked } = useUser();
+    const {currentUser, isUserLoading, authChecked} = useUser();
     const navigationRef = useRef(null);
+    const [hasNavigated, setHasNavigated] = useState(false);
 
     useEffect(() => {
-        if (navigationRef.current && authChecked) {
+        if (navigationRef.current && authChecked && !hasNavigated) {
             if (currentUser) {
                 navigationRef.current.dispatch(
                     CommonActions.reset({
                         index: 0,
-                        routes: [{ name: 'HomePage' }],
+                        routes: [{name: 'HomePage'}],
                     })
                 );
             } else {
                 navigationRef.current.dispatch(
                     CommonActions.reset({
                         index: 0,
-                        routes: [{ name: 'LogoPage' }],
+                        routes: [{name: 'LogoPage'}],
                     })
                 );
             }
+            setHasNavigated(true);
         }
     }, [authChecked, currentUser]);
 
+
     if (isUserLoading) {
-        return <LoadingScreen />;
+        return <LoadingScreen/>;
     }
 
     return (
         <NavigationContainer ref={navigationRef}>
             <Stack.Navigator initialRouteName={currentUser ? 'HomePage' : 'LogoPage'}
-                             screenOptions={{ headerShown: false }}>
-                <Stack.Screen name="LogoPage" component={LogoPage} options={{ title: 'Logo' }} />
-                <Stack.Screen name="IntroPage" component={IntroPage} options={{ title: 'Intro' }} />
-                <Stack.Screen name="Intro2Page" component={Intro2Page} options={{ title: 'Intro 2' }} />
-                <Stack.Screen name="LoginPage" component={LoginPage} options={{ title: 'Login' }} />
-                <Stack.Screen name="RegistrationPage" component={RegistrationPage} options={{ title: 'Registration' }} />
+                             screenOptions={{headerShown: false}}>
+                <Stack.Screen name="LogoPage" component={LogoPage} options={{title: 'Logo'}}/>
+                <Stack.Screen name="IntroPage" component={IntroPage} options={{title: 'Intro'}}/>
+                <Stack.Screen name="Intro2Page" component={Intro2Page} options={{title: 'Intro 2'}}/>
+                <Stack.Screen name="LoginPage" component={LoginPage} options={{title: 'Login'}}/>
+                <Stack.Screen name="RegistrationPage" component={RegistrationPage} options={{title: 'Registration'}}/>
                 <Stack.Screen name="ForgetPasswordPage" component={ForgetPassword}
-                              options={{ title: 'Forget Password' }} />
-                <Stack.Screen name="NotFoundPage" component={NotFoundPage} options={{ title: 'Not Found' }} />
-                <Stack.Screen name="HomePage" component={HomePage} options={{ title: 'Home' }} />
-                <Stack.Screen name="OrderPage" component={OrderPage} options={{ title: 'Order' }} />
+                              options={{title: 'Forget Password'}}/>
+                <Stack.Screen name="NotFoundPage" component={NotFoundPage} options={{title: 'Not Found'}}/>
+                <Stack.Screen name="HomePage" component={HomePage} options={{title: 'Home'}}/>
+                <Stack.Screen name="OrderPage" component={OrderPage} options={{title: 'Order'}}/>
                 <Stack.Screen name="OrderConfirmationPage" component={OrderConfirmationPage}
-                              options={{ title: 'Order Confirmation' }} />
-                <Stack.Screen name="InfoDetailPage" component={InfoDetailPage} options={{ title: 'Info Detail' }} />
+                              options={{title: 'Order Confirmation'}}/>
+                <Stack.Screen name="InfoDetailPage" component={InfoDetailPage} options={{title: 'Info Detail'}}/>
                 <Stack.Screen name="HistoryDetailPage" component={HistoryDetailPage}
-                              options={{ title: 'History Detail' }} />
-                <Stack.Screen name="HistoryPage" component={HistoryPage} options={{ title: 'History' }} />
-                <Stack.Screen name="ProfilePage" component={ProfilePage} options={{ title: 'Profile' }} />
+                              options={{title: 'History Detail'}}/>
+                <Stack.Screen name="HistoryPage" component={HistoryPage} options={{title: 'History'}}/>
+                <Stack.Screen name="ProfilePage" component={ProfilePage} options={{title: 'Profile'}}/>
             </Stack.Navigator>
         </NavigationContainer>
     );
@@ -80,7 +83,7 @@ const App = () => {
     return (
         <FontProvider>
             <UserProvider>
-                <AppNavigator />
+                <AppNavigator/>
             </UserProvider>
         </FontProvider>
     );
