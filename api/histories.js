@@ -1,16 +1,16 @@
 import {FIRESTORE} from '../FirebaseConfig'
-import {getDocs, collection, addDoc, updateDoc, deleteDoc} from 'firebase/firestore'
+import {getDocs, collection, addDoc, updateDoc, deleteDoc, doc} from 'firebase/firestore'
 
 export const getHistories = async () => {
     const histories = [];
-    const querySnapshot = await getDocs(collection(FIRESTORE, 'history'));
+    const querySnapshot = await getDocs(collection(FIRESTORE, 'histories'));
     querySnapshot.docs.map((doc) => {
         histories.push(doc.data());
     });
 }
 
 export const getHistoryById = async (id) => {
-    const querySnapshot = await getDocs(collection(FIRESTORE, 'history'));
+    const querySnapshot = await getDocs(collection(FIRESTORE, 'histories'));
     let histories = null;
     querySnapshot.forEach((doc) => {
         if (doc.id === id) {
@@ -20,8 +20,19 @@ export const getHistoryById = async (id) => {
     return histories;
 }
 
+export const getHistoriesByUID = async (uid) => {
+const querySnapshot = await getDocs(collection(FIRESTORE, 'histories'));
+    let histories = [];
+    querySnapshot.forEach((doc) => {
+        if (doc.data().uid === uid) {
+            histories.push(doc.data());
+        }
+    });
+    return histories;
+}
+
 export const addHistory = async (data) => {
-    await addDoc(collection(FIRESTORE, 'history'), data)
+    await addDoc(collection(FIRESTORE, 'histories'), data)
         .then(() => {
             console.log('History added successfully')
         })
@@ -31,7 +42,7 @@ export const addHistory = async (data) => {
 }
 
 export const updateHistory = async (id, data) => {
-    const historyRef = collection(FIRESTORE, 'history', id);
+    const historyRef = doc(FIRESTORE, 'histories', id);
     await updateDoc(historyRef, data)
         .then(() => {
             console.log('History updated successfully')
@@ -42,7 +53,7 @@ export const updateHistory = async (id, data) => {
 }
 
 export const deleteHistory = async (id) => {
-    const historyRef = collection(FIRESTORE, 'history', id);
+    const historyRef = doc(FIRESTORE, 'histories', id);
     await deleteDoc(historyRef)
         .then(() => {
             console.log('History deleted successfully')

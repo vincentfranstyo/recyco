@@ -32,15 +32,27 @@ const style = StyleSheet.create({
         height: 2,
         marginTop: 2,
     },
-    specialTouchable: {
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '50%',
-        height: 40,
-        backgroundColor: 'transparent',
-        borderRightWidth: 2,
-        borderRightColor: '#2C6262',
+    regular: {
+        fontFamily: 'Poppins_400Regular',
+    },
+    bold: {
+        fontFamily: 'Poppins_700Bold',
+    },
+    medium: {
+        fontFamily: 'Poppins_500Medium'
+    },
+    extraBold: {
+        fontFamily: 'Poppins_800ExtraBold',
+    },
+    black: {
+        fontFamily: 'Poppins_900Black',
+    },
+    backButton: {
+        shadowColor: '#2C6262',
+        shadowOffset: {width: 0, height: 0},
+        shadowOpacity: 0.7,
+        shadowRadius: 10,
+        elevation: 10,
     }
 })
 

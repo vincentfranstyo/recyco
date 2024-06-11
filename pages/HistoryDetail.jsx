@@ -8,6 +8,11 @@ import {useUser} from "../contexts/UserContext";
 const HistoryDetail = ({navigation, route}) => {
     const {currentUser} = useUser();
     const {item} = route.params;
+    console.log(item);
+
+    const formatNumberFromEnd = (num) => {
+        return num.toString().replace(/\d(?=(\d{3})+$)/g, "$&.");
+    };
 
     return (
         <SafeAreaView style={styles.container}>
@@ -20,7 +25,7 @@ const HistoryDetail = ({navigation, route}) => {
 
                 <View style={styles.section}>
                     <Text style={styles.sectionTitle}>Pengangkutan selesai</Text>
-                    <Text style={styles.sectionText}>Pengangkutan sampah selesai pada tanggal 1 Juli 2023</Text>
+                    <Text style={styles.sectionText}>Pengangkutan sampah selesai pada tanggal {item.orderDate}</Text>
                 </View>
 
                 <View style={styles.section}>
@@ -37,23 +42,23 @@ const HistoryDetail = ({navigation, route}) => {
                             <Text style={styles.salinText}>SALIN</Text>
                         </TouchableOpacity>
                     </View>
-                    <Text style={styles.sectionText}>Erensi Ratu Chelsia | (+62) 8xxxxxx</Text>
-                    <Text style={styles.sectionText}>Jalan lorem ipsum no. 100</Text>
-                    <Text style={styles.sectionText}>Lorem, KOTA Bandung, Jawa Barat</Text>
+                    <Text style={styles.sectionText}>{item.name} | {item.phone}</Text>
+                    <Text style={styles.sectionText}>{item.location}</Text>
+                    <Text style={styles.sectionText}>{item.city}</Text>
                 </View>
 
                 <View style={styles.section}>
                     <View style={styles.row}>
                         <Text style={styles.label}>Jenis Sampah</Text>
-                        <Text style={styles.value}>Pisah</Text>
+                        <Text style={styles.value}>{item.status}</Text>
                     </View>
                     <View style={styles.row}>
                         <Text style={styles.label}>Total Sampah</Text>
-                        <Text style={styles.value}>10kg</Text>
+                        <Text style={styles.value}>{item.weight.toString()} kg</Text>
                     </View>
                     <View style={styles.row}>
                         <Text style={styles.label}>Total Biaya</Text>
-                        <Text style={styles.value}>Rp5.000</Text>
+                        <Text style={styles.value}>Rp {formatNumberFromEnd(item.totalPrice.toString())}</Text>
                     </View>
                     <View style={styles.row}>
                         <Text style={styles.label}>Total Points yang Didapatkan</Text>
@@ -65,15 +70,15 @@ const HistoryDetail = ({navigation, route}) => {
                     <Text style={styles.sectionTitle}>Detail Waktu</Text>
                     <View style={styles.row}>
                         <Text style={styles.label}>Waktu Pemesanan</Text>
-                        <Text style={styles.value}>01-07-2023 10:19</Text>
+                        <Text style={styles.value}>{item.orderDate} {item.orderTime}</Text>
                     </View>
                     <View style={styles.row}>
                         <Text style={styles.label}>Waktu Pengiriman</Text>
-                        <Text style={styles.value}>01-07-2023 10:22</Text>
+                        <Text style={styles.value}>{item.orderDate} {item.shipmentTime}</Text>
                     </View>
                     <View style={styles.row}>
                         <Text style={styles.label}>Pengiriman Selesai</Text>
-                        <Text style={styles.value}>01-07-2023 10:42</Text>
+                        <Text style={styles.value}>{item.orderDate} {item.shipmentDone}</Text>
                     </View>
                 </View>
 

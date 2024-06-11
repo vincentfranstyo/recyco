@@ -1,81 +1,78 @@
-import React from 'react';
-import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import React, { useState, useEffect } from 'react';
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Navbar from "../components/Navbar";
-import {useUser} from "../contexts/UserContext";
+import { useUser } from "../contexts/UserContext";
+import { getHistoriesByUID } from "../api/histories";
+import LoadingScreen from "../components/LoadingScreen";
 
-const History = ({navigation}) => {
-    const {currentUser} = useUser();
-    // console.log('history', currentUser)
-    const data = [
-        {date: '1 Juli 2023', totalSampah: '10kg', totalBiaya: 'Rp5.000', status: 'Pilah'},
-        {date: '28 Juni 2023', totalSampah: '10kg', totalBiaya: 'Rp15.000', status: 'Campur'},
-        {date: '9 Juni 2023', totalSampah: '20kg', totalBiaya: 'Rp30.000', status: 'Campur'},
-        {date: '29 Mei 2023', totalSampah: '15kg', totalBiaya: 'Rp7.000', status: 'Pilah'},
-        {date: '10 Mei 2023', totalSampah: '30kg', totalBiaya: 'Rp45.000', status: 'Campur'},
-    ];
+const History = ({ navigation }) => {
+    const { currentUser } = useUser();
+    const [histories, setHistories] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchHistories = async () => {
+            try {
+                const data = await getHistoriesByUID(currentUser.uid);
+                setHistories(data);
+                setLoading(false);
+            } catch (error) {
+                console.error('Error fetching histories: ', error);
+                setLoading(false);
+            }
+        };
+
+        fetchHistories();
+    }, [currentUser.uid]);
+
+    if (loading) {
+        return <LoadingScreen />;
+    }
+
+    const formatNumberFromEnd = (num) => {
+        return num.toString().replace(/\d(?=(\d{3})+$)/g, "$&.");
+    };
+
+    const renderItem = ({ item }) => (
+        <TouchableOpacity
+            style={styles.card}
+            onPress={() => navigation.navigate('HistoryDetailPage', { item: item, currentUser: currentUser })}
+        >
+            <View style={styles.detailsContainer}>
+                <View style={styles.detailsLeft}>
+                    <Text style={styles.date}>{item.orderDate}</Text>
+                </View>
+                <View style={styles.detailsRight}>
+                    <TouchableOpacity
+                        style={[styles.button, item.status === 'Pilah' ? styles.pilahButton : styles.campurButton]}
+                    >
+                        <Text style={styles.buttonText}>{item.status}</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+            <View style={[styles.line, item.status === 'Pilah' ? styles.pilahLine : styles.compurLine]} />
+
+            <View style={styles.detailsContainer}>
+                <View style={styles.detailsLeft}>
+                    <Text style={styles.detailsText}>Total Sampah:</Text>
+                    <Text style={styles.detailsValue}>{parseInt(item.weight).toString()}</Text>
+                </View>
+                <View style={styles.detailsRight}>
+                    <Text style={styles.detailsText}>Total Biaya:</Text>
+                    <Text style={styles.detailsValue}>Rp {formatNumberFromEnd(item.totalPrice.toString())}</Text>
+                </View>
+            </View>
+        </TouchableOpacity>
+    );
 
     return (
         <>
-            <ScrollView style={styles.container}>
-                <Text
-                    className={'text-left text-lg'}
-                    style={{
-                        fontFamily: 'Poppins-Bold',
-                        color: '#2E6464',
-                        marginTop: 16,
-                        marginBottom: 16
-                    }}>
-                    Riwayat Salur Sampah
-                </Text>
-                {data.map((item, index) => (
-                    <TouchableOpacity
-                        key={index}
-                        style={styles.card}
-                        onPress={() => navigation.navigate('HistoryDetailPage', {item: item, currentUser: currentUser})}
-                    >
-                        <View style={styles.detailsContainer}>
-                            <View style={styles.detailsLeft}>
-                                <Text style={styles.date}>{item.date}</Text>
-                            </View>
-                            <View style={styles.detailsRight}>
-                                <TouchableOpacity
-                                    style={[styles.button, item.status === 'Pilah' ? styles.pilahButton : styles.campurButton]}
-                                >
-                                    <Text style={styles.buttonText}>{item.status}</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                        <View style={[styles.line, item.status === 'Pilah' ? styles.pilahLine : styles.compurLine]}/>
-
-                        <View style={styles.detailsContainer}>
-                            <View style={styles.detailsLeft}>
-                                <Text style={styles.detailsText}>Total Sampah:</Text>
-                                <Text className={'text-left text-lg'}
-                                      style={{
-                                          fontFamily: 'Poppins-Bold',
-                                          color: '#2E6464',
-                                          marginTop: 4,
-                                          marginBottom: 4
-                                      }}>
-                                    {item.totalSampah}
-                                </Text>
-                            </View>
-                            <View style={styles.detailsRight}>
-                                <Text style={styles.detailsText}>Total Biaya:</Text>
-                                <Text className={'text-left text-lg'}
-                                      style={{
-                                          fontFamily: 'Poppins-Bold',
-                                          color: '#2E6464',
-                                          marginTop: 4,
-                                          marginBottom: 4
-                                      }}>
-                                    {item.totalBiaya}
-                                </Text>
-                            </View>
-                        </View>
-                    </TouchableOpacity>
-                ))}
-            </ScrollView>
+            <FlatList
+                data={histories}
+                renderItem={renderItem}
+                keyExtractor={(item, index) => index.toString()} // Replace 'index' with unique key
+                style={styles.container}
+            />
             <Navbar
                 navigation={navigation}
                 isHistory={true}
@@ -99,7 +96,7 @@ const styles = StyleSheet.create({
         marginBottom: 16,
         shadowColor: '#2E6464',
         shadowOpacity: 0.5,
-        shadowOffset: {width: 0, height: 0},
+        shadowOffset: { width: 0, height: 0 },
         shadowRadius: 10,
         elevation: 10,
     },
@@ -126,6 +123,12 @@ const styles = StyleSheet.create({
         marginTop: 4,
         marginBottom: 4,
     },
+    detailsValue: {
+        fontFamily: 'Poppins-Bold',
+        color: '#2E6464',
+        marginTop: 4,
+        marginBottom: 4,
+    },
     button: {
         paddingVertical: 8,
         paddingHorizontal: 16,
@@ -133,19 +136,11 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-end',
     },
     pilahButton: {
-        paddingVertical: 8,
-        paddingHorizontal: 16,
-        borderRadius: 20,
-        alignSelf: 'flex-end',
         backgroundColor: '#ffffff',
         borderWidth: 2,
         borderColor: '#2E6464',
     },
     campurButton: {
-        paddingVertical: 8,
-        paddingHorizontal: 8,
-        borderRadius: 20,
-        alignSelf: 'flex-end',
         backgroundColor: '#ffffff',
         borderWidth: 2,
         borderColor: '#2E6464',

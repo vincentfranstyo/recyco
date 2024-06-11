@@ -20,7 +20,7 @@ const HomePage = ({navigation, route}) => {
         )
     }
 
-    console.log('home', currentUser)
+    // console.log('home', currentUser)
 
     return (
         <SafeAreaView

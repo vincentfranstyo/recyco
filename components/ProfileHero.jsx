@@ -53,7 +53,7 @@ const ProfileHero = ({ navigation}) => {
                     </Text>
                     <TouchableOpacity
                         className={'flex justify-center items-center mb-2'}
-                        onPress={() => navigation.navigate('EditProfilePage', { user: user })}
+                        onPress={() => navigation.navigate('NotFoundPage')}
                     >
                         <Text
                             className={'text-xs underline'}
@@ -76,7 +76,7 @@ const ProfileHero = ({ navigation}) => {
                             />
                         </View>
                         <Text
-                            className={'text-center text-xs text-white ml-8'}
+                            className={'text-center text-xs text-white ml-6'}
                             style={{ fontFamily: 'Poppins-Bold' }}
                         >
                             {user.points} points

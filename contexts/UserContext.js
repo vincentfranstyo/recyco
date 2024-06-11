@@ -10,12 +10,13 @@ export const useUser = () => useContext(UserContext);
 export const UserProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [currentUser, setCurrentUser] = useState(null);
+    const [authChecked, setAuthChecked] = useState(false);
     const [isUserLoading, setIsUserLoading] = useState(true);
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(FIREBASE_AUTH, (user) => {
             setUser(user);
-            setIsUserLoading(false);
+            setAuthChecked(true);
         });
         return () => unsubscribe();
     }, []);
@@ -24,27 +25,25 @@ export const UserProvider = ({ children }) => {
         const fetchUserData = async () => {
             if (user) {
                 try {
-                    setIsUserLoading(true);
                     const data = await getUserByUid(user.uid);
                     setCurrentUser(data);
                 } catch (e) {
-                    console.error("Error fetching user: " + e);
-                } finally {
-                    setIsUserLoading(false);
+                    console.error("error fetching user: " + e);
                 }
-            } else {
-                setIsUserLoading(false);
             }
+            setIsUserLoading(false);
         };
-        fetchUserData();
-    }, [user]);
+        if (authChecked) {
+            fetchUserData();
+        }
+    }, [user, authChecked]);
 
     const updateUser = async (uid, data) => {
         try {
             await updateUserData(uid, data);
             const updatedUserData = await getUserByUid(uid);
             setCurrentUser(updatedUserData);
-            return updatedUserData; // Ensure the updated data is returned
+            return updatedUserData;
         } catch (error) {
             console.error('Error updating user: ', error);
             throw error;
@@ -52,7 +51,7 @@ export const UserProvider = ({ children }) => {
     };
 
     return (
-        <UserContext.Provider value={{ currentUser, updateUser, isUserLoading }}>
+        <UserContext.Provider value={{ currentUser, updateUser, isUserLoading, authChecked }}>
             {children}
         </UserContext.Provider>
     );
