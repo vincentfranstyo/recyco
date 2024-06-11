@@ -43,11 +43,11 @@ const History = ({ navigation }) => {
                     <Text style={styles.date}>{item.orderDate}</Text>
                 </View>
                 <View style={styles.detailsRight}>
-                    <TouchableOpacity
+                    <View
                         style={[styles.button, item.status === 'Pilah' ? styles.pilahButton : styles.campurButton]}
                     >
                         <Text style={styles.buttonText}>{item.status}</Text>
-                    </TouchableOpacity>
+                    </View>
                 </View>
             </View>
             <View style={[styles.line, item.status === 'Pilah' ? styles.pilahLine : styles.compurLine]} />

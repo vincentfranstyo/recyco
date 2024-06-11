@@ -9,7 +9,6 @@ import {useUser} from "../contexts/UserContext";
 const Profile = ({navigation}) => {
     const auth = FIREBASE_AUTH;
     const { currentUser } = useUser();
-    // console.log('profile', currentUser)
     return (
         <>
             <View
