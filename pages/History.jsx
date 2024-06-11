@@ -70,7 +70,7 @@ const History = ({ navigation }) => {
             <FlatList
                 data={histories}
                 renderItem={renderItem}
-                keyExtractor={(item, index) => index.toString()} // Replace 'index' with unique key
+                keyExtractor={(item, index) => index.toString()}
                 style={styles.container}
             />
             <Navbar
@@ -88,6 +88,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         paddingHorizontal: 20,
         paddingVertical: 40,
+        maxHeight: '91%'
     },
     card: {
         backgroundColor: '#ffffff',
@@ -98,7 +99,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.5,
         shadowOffset: { width: 0, height: 0 },
         shadowRadius: 10,
-        elevation: 10,
+        elevation: 3,
     },
     date: {
         fontWeight: 'bold',
