@@ -86,7 +86,7 @@ const style = StyleSheet.create({
         shadowOffset: {width: 0, height: 0},
         shadowOpacity: 0.5,
         shadowRadius: 2,
-        elevation: 10,
+        elevation: 4,
     },
     horizontalLine: {
         borderBottomColor: 'black',

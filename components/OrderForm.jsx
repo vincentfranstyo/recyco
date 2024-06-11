@@ -222,7 +222,7 @@ const OrderForm = ({navigation}) => {
                     </View>
                     <View className={'flex justify-between w-full px-2'}>
                         <View className={'flex justify-start items-start w-full mb-2'}>
-                            <Text className={'text-[10px] text-gray-200'}>
+                            <Text className={'text-[10px] text-gray-300'}>
                                 Nama pengirim*
                             </Text>
                             <TextInput placeholder={'Nama Pengirim'} value={name} onChangeText={setName}
@@ -230,7 +230,7 @@ const OrderForm = ({navigation}) => {
                                        className={'w-full h-auto bg-transparent border-b-2 border-gray-200 text-xs'}/>
                         </View>
                         <View className={'flex justify-between mb-2'}>
-                            <Text className={'text-[10px] text-gray-200'}>
+                            <Text className={'text-[10px] text-gray-300'}>
                                 Nomor telepon*
                             </Text>
                             <TextInput keyboardType={'phone-pad'} placeholder={'Nomor telepon'} value={phone}
