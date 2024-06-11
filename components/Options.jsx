@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Alert, Image, Text, TouchableOpacity, View} from "react-native";
 import {LinearGradient} from "expo-linear-gradient";
+import {useUser} from "../contexts/UserContext";
 
 const setting = require('../assets/images/settings.png')
 const FAQ = require('../assets/images/FAQ.png')
@@ -38,6 +39,8 @@ const options = [
 ]
 
 const Options = ({navigation, auth}) => {
+    const { currentUser, updateUser } = useUser();
+    const [user, setUser] = useState(currentUser);
     const handleNavigateOption = (option) => {
         navigation.navigate(option)
     }
@@ -45,9 +48,11 @@ const Options = ({navigation, auth}) => {
     const handleLogout = () => {
         auth.signOut()
             .then(() => {
+                // updateUser(null);
                 navigation.navigate('LoginPage')
                 console.log('Logout Success')
                 Alert.alert('Logout Success')
+
             })
             .catch((error) => {
                 console.error(error)

@@ -4,6 +4,7 @@ import {LinearGradient} from 'expo-linear-gradient'
 import {FIREBASE_AUTH} from '../FirebaseConfig'
 import {signInWithEmailAndPassword} from 'firebase/auth';
 import validate from 'validate.js';
+import {useUser} from "../contexts/UserContext";
 
 const login_logo = require('../assets/images/login_logo.png');
 const google_icon = require('../assets/images/google_icon.png');
@@ -21,7 +22,8 @@ const validateEmail = (email) => {
 };
 
 const LoginPage = ({navigation}) => {
-    // console.log(user.uid)
+    // const user = useUser();
+    // console.log('login', user.uid)
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -103,6 +105,7 @@ const LoginPage = ({navigation}) => {
 
     const handleGoogleLogin = async () => {
         // await promptAsync();
+        navigation.navigate('NotFoundPage')
     };
     const togglePasswordVisibility = () => {
         setIsPasswordVisible(!isPasswordVisible);
