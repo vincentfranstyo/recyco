@@ -21,7 +21,6 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/logo.png",
         "backgroundColor": "#ffffff"
-
       },
       "package": "com.vfranstyo.recyco",
       "googleServicesFile": "./google-services.json"
@@ -31,6 +30,7 @@
     },
     "extra": {
       "eas": {
+        "projectId": "950196b4-d688-40cc-9564-63e73edc2899"
       },
       "router": {
         "origin": false
